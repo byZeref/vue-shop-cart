@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    /* Disabled */
+    .disabled {
+        @apply opacity-50 pointer-events-none cursor-not-allowed
+    }
+    
+    /* Defalut btn */
+    .btn-gray {
+        @apply px-4 py-2 bg-gray-500 hover:bg-gray-600 active:bg-gray-700 text-white text-sm font-normal rounded-md shadow focus:outline-none leading-tight
+    }
+    .btn-slate {
+        @apply px-4 py-2 bg-slate-500 hover:bg-slate-600 active:bg-slate-700 text-white text-sm font-normal rounded-md shadow focus:outline-none leading-tight
+    }
+    .btn-zinc {
+       @apply px-4 py-2 bg-zinc-500 hover:bg-zinc-600 active:bg-zinc-700 text-white text-sm font-normal rounded-md shadow focus:outline-none leading-tight
+    }
+    .btn-neutral {
+        @apply px-4 py-2 bg-neutral-500 hover:bg-neutral-600 active:bg-neutral-700 text-white text-sm font-normal rounded-md shadow focus:outline-none leading-tight
+    }
+    .btn-stone {
+        @apply px-4 py-2 bg-stone-500 hover:bg-stone-600 active:bg-stone-700 text-white text-sm font-normal rounded-md shadow focus:outline-none leading-tight
+    }
+
+    /* Blue btn */
+    .btn-blue {
+        @apply px-4 py-2 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white text-sm font-normal rounded-md shadow focus:outline-none leading-tight
+    }
+    .btn-cyan {
+        @apply py-2 px-3 bg-cyan-500 hover:bg-cyan-600 active:bg-cyan-700 text-white text-sm font-normal rounded-md shadow focus:outline-none
+    }
+    .btn-sky {
+        @apply px-4 py-2 bg-sky-500 hover:bg-sky-600 active:bg-sky-700 text-white text-sm font-normal rounded-md shadow focus:outline-none leading-tight
+    }
+
+    /* Green btn */
+    .btn-lime {
+        @apply py-2 px-3 bg-lime-500 hover:bg-lime-600 active:bg-lime-700 text-white text-sm font-normal rounded-md shadow focus:outline-none
+    }
+    .btn-green {
+        @apply px-4 py-2 bg-green-600 hover:bg-green-700 active:bg-green-800 text-white text-sm font-normal rounded-md shadow focus:outline-none leading-tight
+    }
+    .btn-emerald {
+        @apply py-2 px-3 bg-emerald-500 hover:bg-emerald-600 active:bg-emerald-700 text-white text-sm font-normal rounded-md shadow focus:outline-none
+    }
+    .btn-teal {
+        @apply px-4 py-2 bg-teal-500 hover:bg-teal-600 active:bg-teal-700 text-white text-sm font-normal rounded-md shadow focus:outline-none leading-tight
+    }
+
+    /* Violet btn */
+    .btn-indigo {
+        @apply py-2 px-3 bg-indigo-500 hover:bg-indigo-600 active:bg-indigo-700 text-white text-sm font-normal rounded-md shadow focus:outline-none
+    }
+    .btn-violet {
+        @apply px-4 py-2 bg-violet-500 hover:bg-violet-600 active:bg-violet-700 text-white text-sm font-normal rounded-md shadow focus:outline-none leading-tight
+    }
+
+    /* Pink btn */
+    .btn-purple {
+        @apply py-2 px-3 bg-purple-500 hover:bg-purple-600 active:bg-purple-700 text-white text-sm font-normal rounded-md shadow focus:outline-none
+    }
+    .btn-fuchsia {
+        @apply px-4 py-2 bg-fuchsia-500 hover:bg-fuchsia-600 active:bg-fuchsia-700 text-white text-sm font-normal rounded-md shadow focus:outline-none leading-tight
+    }
+    .btn-pink {
+        @apply py-2 px-3 bg-pink-500 hover:bg-pink-600 active:bg-pink-700 text-white text-sm font-normal rounded-md shadow focus:outline-none
+    }
+
+    /* Red btn */
+    .btn-red {
+        @apply py-2 px-3 bg-red-600 hover:bg-red-700 active:bg-red-800 text-white text-sm font-normal rounded-md shadow focus:outline-none
+    }
+    .btn-rose {
+        @apply py-2 px-3 bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white text-sm font-normal rounded-md shadow focus:outline-none
+    }
+
+    /* Orange btn */
+    .btn-orange {
+        @apply px-4 py-2 bg-orange-500 hover:bg-orange-600 active:bg-orange-700 text-white text-sm font-normal rounded-md shadow focus:outline-none leading-tight
+    }
+    .btn-amber {
+        @apply py-2 px-3 bg-amber-500 hover:bg-amber-600 active:bg-amber-700 text-white text-sm font-normal rounded-md shadow focus:outline-none
+    }
+    .btn-yellow {
+        @apply px-4 py-2 bg-yellow-500 hover:bg-yellow-600 active:bg-yellow-700 text-white text-sm font-normal rounded-md shadow focus:outline-none leading-tight
+    }
+
+
+    /* Outline btn */
+    .btn-red-outline {
+        @apply py-2 px-3 bg-transparent hover:bg-red-600 active:bg-red-800 text-red-600 hover:text-white border border-red-600  text-sm font-normal rounded-md shadow focus:outline-none
+    }
+
+}
