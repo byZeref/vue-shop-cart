@@ -6,8 +6,7 @@
     </div>
     <div class="mt-4">
         <h3>Contador: <span :class="[counter > 0 ? 'posit' : 'negat']">{{ counter }}</span></h3>
-        <button @click="$emit('increment')" @click.prevent.right="$emit('decrement')"
-            class="btn-cyan">Incrementar</button>
+        <button @click="ev()" @click.prevent.right="$emit('decrement')" class="btn-cyan">Incrementar</button>
     </div>
     <div class="flex flex-col">
         <div v-for="(item, index) in array" :key="item.id">
@@ -18,8 +17,8 @@
 <script setup>
 import { onMounted, computed } from "vue";
 
-defineEmits(['increment', 'decrement'])
-defineProps({
+const emit = defineEmits(['increment', 'decrement'])
+const props = defineProps({
     msg: {
         type: String,
         required: true
@@ -32,7 +31,9 @@ defineProps({
         type: Array
     }
 })
-
+const ev = () => {
+    emit('increment')
+}
 
 </script>
 
