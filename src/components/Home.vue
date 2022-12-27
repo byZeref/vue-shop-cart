@@ -5,7 +5,8 @@
         <button class="btn-emerald" @click="msg = 'cambio desde hijo'">Mensaje</button>
     </div>
     <div class="mt-4">
-        <h3>Contador: <span :class="[counter > 0 ? 'posit' : 'negat']">{{ counter }}</span></h3>
+        <!-- <h3>Contador: <span :class="[counter > 0 ? 'posit' : 'negat']">{{ counter }}</span></h3> -->
+        <h3>Contador: <span :class="counterClass()">{{ counter }}</span></h3>
         <button @click="ev()" @click.prevent.right="$emit('decrement')" class="btn-cyan">Incrementar</button>
     </div>
     <div class="flex flex-col">
@@ -31,8 +32,21 @@ const props = defineProps({
         type: Array
     }
 })
+
 const ev = () => {
     emit('increment')
+}
+
+const counterClass = () => {
+    if (props.counter === 0) {
+        return 'cero'
+    }
+    if (props.counter > 0) {
+        return 'posit'
+    }
+    if (props.counter < 0) {
+        return 'negat'
+    }
 }
 
 </script>
@@ -44,5 +58,9 @@ const ev = () => {
 
 .negat {
     color: red;
+}
+
+.cero {
+    color: black;
 }
 </style>

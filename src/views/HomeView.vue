@@ -38,9 +38,15 @@ const getMsg = computed(() => {
 
 const increment = () => {
   counter.value++
+  array.value.forEach(item => {
+    item.age++
+  });
 }
 const decrement = () => {
   counter.value--
+  array.value.forEach(item => {
+    item.age--
+  });
 }
 
 onMounted(() => {
