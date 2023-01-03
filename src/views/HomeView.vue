@@ -23,12 +23,12 @@ const setData = () => {
     {
       id: 2,
       name: 'Paco',
-      age: 30
+      age: 50
     },
     {
       id: 3,
       name: 'Pancho',
-      age: 40
+      age: 45
     }
   )
 }
