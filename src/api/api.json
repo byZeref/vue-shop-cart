@@ -1,0 +1,38 @@
+{
+    "results": 
+    {
+        "products": 
+        [
+            {
+                "id": 1,
+                "name": "Fresa",
+                "price": 2.99,
+                "stock": 3
+            },
+            {
+                "id": 2,
+                "name": "Manzana",
+                "price": 3.88,
+                "stock": 23
+            },
+            {
+                "id": 3,
+                "name": "Banana",
+                "price": 1.49,
+                "stock": 0
+            },
+            {
+                "id": 4,
+                "name": "Sandía",
+                "price": 3.01,
+                "stock": 52
+            },
+            {
+                "id": 5,
+                "name": "Mango",
+                "price": 4.99,
+                "stock": 0
+            }
+        ]
+    }
+}

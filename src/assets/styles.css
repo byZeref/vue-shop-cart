@@ -5,7 +5,7 @@
 @layer components {
     /* Disabled */
     .disabled {
-        @apply opacity-50 pointer-events-none cursor-not-allowed
+        @apply opacity-50 pointer-events-none cursor-not-allowed select-none
     }
     
     /* Defalut btn */
