@@ -7,7 +7,7 @@
                 </label>
                 <ul tabindex="0"
                     class="menu menu-compact dropdown-content mt-3 p-2 shadow-lg bg-base-100 rounded-box w-40 md:w-52">
-                    <li><a>Item 1</a></li>
+                    <li><a>Item 111</a></li>
                     <li tabindex="0">
                         <a class="justify-between">
                             Parent
@@ -58,10 +58,10 @@
                         </span>
                         <span class="text-slate-500">Subtotal: ${{ store.mount.toFixed(2) }}</span>
                         <div class="card-actions">
-                            <button
+                            <label for="cart-modal"
                                 :class="[store.counter === 0 ? 'disabled' : '', 'btn btn-outline btn-accent btn-block']">
                                 Ver Carrito
-                            </button>
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -69,18 +69,22 @@
         </div>
     </div>
 
-    <!-- <CartModal /> -->
+    <CartModal />
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import { Bars3CenterLeftIcon, ChevronDownIcon, ChevronRightIcon, ShoppingCartIcon } from "@heroicons/vue/24/outline";
 import { useCartStore } from '../stores/cart';
 import CartModal from "../components/CartModal.vue";
 
 const store = useCartStore()
+const link_color = '#3ABFF8'
 
 </script>
 
 <style>
-
+ul>li>a:active {
+    background-color: v-bind(link_color);
+}
 </style>

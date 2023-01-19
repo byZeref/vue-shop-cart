@@ -2,12 +2,12 @@
   <div id="container" class="flex flex-col mt-3">
     <h1 class="text-3xl font-semibold mb-6 ml-2">Tienda de Frutas</h1>
     <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
-      <Shop :products="products" :cart="cart" @addToCart="addToCart" />
+      <Shop />
+      <!-- <Shop :products="products" :cart="cart" @addToCart="addToCart" /> -->
     </div>
 
-    <!-- TODO mostrar el carrito en un modal -->
-    <Cart v-if="!empty_cart" class="mx-2" :products="products" :cart="cart" @clear_cart="clear_cart"
-      @addToCart="addToCart" @discountFromCart="discountFromCart" />
+    <!-- <Cart v-if="!empty_cart" class="mx-2" :products="products" :cart="cart" @clear_cart="clear_cart"
+      @addToCart="addToCart" @discountFromCart="discountFromCart" /> -->
   </div>
 
   <!-- TAILWIND RESPONSIVE EXAMPLE -->
@@ -28,78 +28,18 @@
     </div>
   </div> -->
 
-
 </template>
 
 <script setup>
-import Shop from "../components/Shop.vue";
-import Cart from "../components/Cart.vue";
 import api_request from "../js/api_request";
+import Shop from "../components/Shop.vue";
 import { ref, onMounted } from "vue";
-import { useCartStore } from "../stores/cart";
+import { useProductStore } from "../stores/product";
 
-const products = ref([])
-const cart = ref([]) // TODO cart debe estar en el store para acceder desde el navbar
-let empty_cart = ref(true)
-const store = useCartStore()
-
-const addToCart = (item) => {
-  const prod = cart.value.find(el => el.id === item.id)
-  if (prod && item.stock > 0) {
-    prod.cant++
-    prod.monto = prod.price * prod.cant
-    item.stock--
-    store.subtotal(prod.price)
-  } else {
-    item.stock--
-    cart.value.push({
-      id: item.id,
-      product: item.name,
-      cant: 1,
-      price: item.price,
-      monto: item.price
-    })
-    store.mount += item.price
-  }
-  store.add()
-  empty_cart.value = false
-}
-
-const discountFromCart = (item) => {
-  if (item.cant > 0) {
-    const prod = products.value.find(el => el.id === item.id)
-    prod.stock++
-    item.cant--
-    item.monto -= item.price
-    store.subtotal(item.price * (-1)) // para q lo reste
-  }
-  if (getCartProductsCount() === 0) {
-    empty_cart.value = true
-  }
-  store.remove()
-}
-
-const getCartProductsCount = () => {
-  let c = 0
-  cart.value.forEach(item => {
-    c += item.cant
-  });
-  return c
-}
-
-const clear_cart = () => {
-  cart.value.forEach(cart_item => {
-    const prod = products.value.find(item => item.id === cart_item.id)
-    prod.stock += cart_item.cant
-  });
-  cart.value = []
-  empty_cart.value = true
-  store.counter = 0
-  store.mount = 0
-}
+const productStore = useProductStore()
 
 onMounted(async () => {
-  api_request(products.value)
+  api_request(productStore.products)
 })
 </script>
 
