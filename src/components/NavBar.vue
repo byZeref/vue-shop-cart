@@ -48,7 +48,9 @@
                 <label tabindex="0" class="btn btn-ghost btn-circle">
                     <div class="indicator">
                         <ShoppingCartIcon class="w-6 h-6" />
-                        <span v-if="store.counter > 0" class="badge badge-sm  indicator-item">{{ store.counter }}</span>
+                        <span v-if="store.counter > 0" class="badge badge-sm bg-accent border-none indicator-item">{{
+                            store.counter
+                        }}</span>
                     </div>
                 </label>
                 <div tabindex="0" class="mt-3 card card-compact dropdown-content w-60 bg-base-100 shadow">

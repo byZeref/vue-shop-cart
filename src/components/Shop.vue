@@ -1,9 +1,8 @@
 <template>
-    <div v-for="(item) in productStore.products" :key="item.id"
-        class="md:mx-2 rounded-xl lg:max-w-3xl shadow-lg bg-white">
+    <div v-for="(item) in products" :key="item.id" class="md:mx-2 rounded-xl lg:max-w-3xl shadow-lg bg-white">
 
         <img class="h-48 w-full rounded-t-xl object-cover 2xl:h-40"
-            :src="'src/assets/images/' + item.name.toLowerCase() + '.jpg'" alt="">
+            :src="`src/assets/images/${item.name.toLowerCase()}.jpg`" :alt="`Imagen de ${item.name}`">
 
         <div class="p-8">
             <div id="heading" class="mb-2 md:mb-1 md:flex justify-between items-center">
@@ -29,7 +28,6 @@
 </template>
 
 <script setup>
-import { onMounted, onBeforeMount } from 'vue';
 import { useProductStore } from '../stores/product';
 import { useCartStore } from '../stores/cart';
 

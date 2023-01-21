@@ -171,8 +171,5 @@ const clearCart = () => {
 </script>
 
 <style scoped>
-.panel>.panel_title {
-    top: -1rem;
-    /* -16px */
-}
+
 </style>
