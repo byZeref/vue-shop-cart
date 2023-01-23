@@ -1,13 +1,30 @@
 <template>
   <div id="container" class="flex flex-col mt-3">
-    <h1 class="text-3xl font-semibold mb-6 ml-2">Tienda de Frutas</h1>
-    <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
-      <Shop />
-      <!-- <Shop :products="products" :cart="cart" @addToCart="addToCart" /> -->
+    <div class="flex flex-col md:flex-row justify-between mb-6 ml-2">
+      <h1 class="text-3xl font-semibold mb-1">Tienda de Frutas</h1>
+      <div class="flex flex-col md:flex-row md:space-x-2">
+        <SearchFilter />
+        <!-- TODO dropdown sort -->
+        <DropdownSort />
+      </div>
     </div>
 
-    <!-- <Cart v-if="!empty_cart" class="mx-2" :products="products" :cart="cart" @clear_cart="clear_cart"
-      @addToCart="addToCart" @discountFromCart="discountFromCart" /> -->
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+      <Shop />
+    </div>
+
+    <div v-if="productStore.empty_search">
+      <div class="flex flex-col md:flex-row items-center space-x-1 bg-slate-300 rounded-md py-4 px-5 md:py-10 md:px-12">
+        <ExclamationTriangleIcon class="h-8 w-8 text-slate-600" />
+        <div class="flex items-center">
+          <h3 class="md:text-xl text-slate-600">
+            <span class="text-slate-600 font-semibold">Upss!!</span>
+            No se encontraron resultados en la búsqueda.
+          </h3>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <!-- TAILWIND RESPONSIVE EXAMPLE -->
@@ -35,6 +52,9 @@ import api_request from "../js/api_request";
 import Shop from "../components/Shop.vue";
 import { ref, onMounted } from "vue";
 import { useProductStore } from "../stores/product";
+import DropdownSort from "../components/DropdownSort.vue";
+import SearchFilter from "../components/SearchFilter.vue";
+import { ExclamationTriangleIcon } from '@heroicons/vue/24/outline'
 
 const productStore = useProductStore()
 

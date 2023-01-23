@@ -1,5 +1,6 @@
 <template>
-    <div v-for="(item) in products" :key="item.id" class="md:mx-2 rounded-xl lg:max-w-3xl shadow-lg bg-white">
+    <div v-for="(item) in productStore.filter_products" :key="item.id"
+        class="md:mx-2 rounded-xl lg:max-w-3xl shadow-lg bg-white">
 
         <img class="h-48 w-full rounded-t-xl object-cover 2xl:h-40"
             :src="`src/assets/images/${item.name.toLowerCase()}.jpg`" :alt="`Imagen de ${item.name}`">
@@ -24,6 +25,7 @@
             </button>
         </div>
     </div>
+
     <!-- <button @click="goTop" class="btn">TOP</button> -->
 </template>
 
@@ -32,7 +34,6 @@ import { useProductStore } from '../stores/product';
 import { useCartStore } from '../stores/cart';
 
 const productStore = useProductStore()
-const { products } = productStore
 const cartStore = useCartStore()
 
 // const goTop = () => {
