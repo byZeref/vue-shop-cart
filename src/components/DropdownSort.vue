@@ -41,17 +41,22 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { Listbox, ListboxLabel, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/vue'
+import { ref, watch } from 'vue'
+import { useProductStore } from "../stores/product";
+import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/vue'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/20/solid'
 
+const productStore = useProductStore()
 const options = ref([
-    'Ninguno',
     'Nombre',
     'Precio',
     'Disponibilidad',
 ])
 const selected = ref(options.value[0])
+
+watch(selected, () => {
+    productStore.sortProds(selected.value.toLocaleLowerCase())
+})
 
 </script>
 

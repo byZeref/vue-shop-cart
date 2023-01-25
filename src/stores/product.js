@@ -13,5 +13,29 @@ export const useProductStore = defineStore('product', () => {
         filter_products.value.length === 0 ? empty_search.value = true : empty_search.value = false
     })
 
-    return { products, filter_products, filterProds, empty_search }
+    const sortProds = (value) => {
+        if (value === 'nombre') {
+            products.value.sort((a, b) => {
+                if (a.name > b.name) return 1
+                if (a.name < b.name) return -1
+                return 0
+            })
+        }
+        if (value === 'precio') {
+            products.value.sort((a, b) => {
+                if (a.price > b.price) return 1
+                if (a.price < b.price) return -1
+                return 0
+            })
+        }
+        if (value === 'disponibilidad') {
+            products.value.sort((a, b) => {
+                if (a.stock > b.stock) return -1
+                if (a.stock < b.stock) return 1
+                return 0
+            })
+        }
+    }
+
+    return { products, filter_products, filterProds, empty_search, sortProds }
 })

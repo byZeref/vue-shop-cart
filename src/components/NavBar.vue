@@ -1,4 +1,5 @@
 <template>
+    <!-- TODO change mobile menu -->
     <div class="navbar bg-base-100 shadow rounded-lg">
         <div class="navbar-start">
             <div class="dropdown">
@@ -7,7 +8,7 @@
                 </label>
                 <ul tabindex="0"
                     class="menu menu-compact dropdown-content mt-3 p-2 shadow-lg bg-base-100 rounded-box w-40 md:w-52">
-                    <li><a>Item 111</a></li>
+                    <li><a>Item 1</a></li>
                     <li tabindex="0">
                         <a class="justify-between">
                             Parent

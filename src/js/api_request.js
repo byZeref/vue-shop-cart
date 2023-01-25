@@ -7,7 +7,13 @@ const api_request = async (products_arr) => {
         products.forEach(item => {
             products_arr.push(item)
         });
-    } catch (error) {
+        // sort by name (default)
+        products_arr.sort((a, b) => {
+            if (a.name > b.name) return 1
+            if (a.name < b.name) return -1
+            return 0
+        })
+    } catch (e) {
         console.log('Error');
     }
 
