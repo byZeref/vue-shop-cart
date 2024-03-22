@@ -2,7 +2,6 @@
   <div id="container" class="flex flex-col mt-3">
     <!-- HEADER -->
     <div class="flex flex-col md:flex-row justify-between mb-6 ml-2">
-      <!-- <h1 class="text-3xl font-semibold mb-1">Productos</h1> -->
       <div class="flex flex-col md:flex-row md:space-x-2">
         <SearchFilter />
         <DropdownSort />
@@ -29,24 +28,6 @@
       </div>
     </div>
   </div>
-
-  <!-- TAILWIND RESPONSIVE EXAMPLE -->
-  <!-- <div class="mt-10 max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
-    <div class="md:flex">
-      <div class="md:shrink-0">
-        <img class="h-48 w-full object-cover md:h-full md:w-48" src="../assets/images/banana.jpg"
-          alt="Modern building architecture">
-      </div>
-      <div class="p-8">
-        <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">Company retreats</div>
-        <a href="#" class="block mt-1 text-lg leading-tight font-medium text-black hover:underline">Incredible
-          accomodation for your team</a>
-        <p class="mt-2 text-slate-500">Looking to take your team away on a retreat to enjoy awesome food and take in
-          some
-          sunshine? We have a list of places to do just that.</p>
-      </div>
-    </div>
-  </div> -->
 </template>
 
 <script setup>
@@ -57,11 +38,21 @@ import { useProductStore } from "../stores/product";
 import DropdownSort from "../components/DropdownSort.vue";
 import SearchFilter from "../components/SearchFilter.vue";
 import { ExclamationTriangleIcon } from "@heroicons/vue/24/outline";
+import { PRODUCTS } from '@/utils/constants'
 
 const productStore = useProductStore();
 
 onMounted(async () => {
-  api_request(productStore.products);
+  // api_request(productStore.products);
+  const { products: store_products } = productStore
+  PRODUCTS.forEach(item => {
+      store_products.push(item)
+  })
+  store_products.sort((a, b) => {
+      if (a.name > b.name) return 1
+      if (a.name < b.name) return -1
+      return 0
+  })
 });
 </script>
 
