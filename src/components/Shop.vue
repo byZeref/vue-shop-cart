@@ -20,7 +20,9 @@
         </h3>
         <span
           :class="[
-            availableProduct(item).bool ? 'bg-emerald-400' : 'bg-red-400',
+            availableProduct(item).bool
+              ? 'bg-emerald-400'
+              : 'bg-red-400 min-w-[93px]',
             'text-xs font-semibold rounded-sm px-2 py-1',
           ]"
         >
