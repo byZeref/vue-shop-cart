@@ -25,17 +25,17 @@
         </ul>
       </div>
       <img
-        src="../assets/icons/fruit-logo.ico"
-        class="max-lg:hidden w-10 h-10"
+        src="../assets/images/logo.png"
+        class="main-image desktop max-lg:hidden"
         alt="fruit-logo"
       />
       <RouterLink to="/" class="max-lg:hidden text-2xl font-medium">
-        Masticando
+        <!-- Masticando -->
       </RouterLink>
     </div>
     <img
-      src="../assets/icons/fruit-logo.ico"
-      class="lg:hidden w-10 h-10"
+      src="../assets/images/logo.png"
+      class="main-image lg:hidden"
       alt="fruit-logo"
     />
     <div class="navbar-center hidden lg:flex">
@@ -117,8 +117,21 @@ const store = useCartStore();
 const link_color = "#3ABFF8";
 </script>
 
-<style>
+<style lang="css">
 ul > li > a:active {
   background-color: v-bind(link_color);
+}
+.main-image {
+  aspect-ratio: 16/9;
+  height: 50px;
+  width: auto;
+  &.desktop {
+    margin-left: 12px;
+  }
+}
+.navbar {
+  position: fixed;
+  width: calc(100% - 64px) !important;
+  z-index: 100;
 }
 </style>

@@ -56,7 +56,7 @@
           </div>
           <!-- ACTION BUTTONS -->
           <div
-            class="basis-1/3 md:basis-2/4 flex justify-center md px-0 md:px-2 py-4 items-center"
+            class="basis-1/2 md:basis-2/4 flex justify-center md px-0 md:px-2 py-4 items-center"
           >
             <!-- <button @click="addToCart(item)"
                             :class="[outOfStock(item) ? 'disabled' : '', 'btn btn-success btn-xs md:btn-sm btn-square']">
@@ -64,26 +64,26 @@
                         </button> -->
             <button
               @click="addToCart(item)"
-              :class="['btn btn-success btn-xs md:btn-sm btn-square']"
+              :class="['btn btn-success btn-sm btn-square']"
             >
-              <PlusIcon class="w-3 h-3 md:w-5 md:h-5" />
+              <PlusIcon class="w-4 h-4 md:w-5 md:h-5" />
             </button>
             <button
               @click="removeFromCart(item)"
-              class="btn btn-error btn-xs md:btn-sm btn-square mx-1"
+              class="btn btn-error btn-sm btn-square mx-1"
             >
-              <MinusIcon class="w-3 h-3 md:w-5 md:h-5" />
+              <MinusIcon class="w-4 h-4 md:w-5 md:h-5" />
             </button>
-            <button
+            <!-- <button
               @click="removeFullProd(item)"
               class="btn btn-ghost btn-sm text-xs"
             >
               <span class="md:hidden">Eliminar</span>
               <span class="max-md:hidden">Eliminar Producto</span>
-            </button>
+            </button> -->
           </div>
           <!-- MOUNTS -->
-          <div class="basis-1/3 md:basis-1/4 px-1 md:px-2 py-4 text-end">
+          <div class="basis-1/6 md:basis-1/4 px-1 md:px-2 py-4 text-end">
             <p class="font-semibold">${{ item.monto.toFixed(2) }}</p>
           </div>
         </div>
@@ -176,7 +176,7 @@ const message = computed(() => {
     text += `${item.product} - ${item.cant} ${units} ($${subtotal}.00)`;
     if (index + 1 < cart.length) text += " | ";
   });
-  text += `. *${'`'}TOTAL $${total}.00${'`'}*`;
+  text += `. *${"`"}TOTAL $${total}.00${"`"}*`;
   return text;
 });
 
