@@ -1,37 +1,26 @@
 {
-    "results": 
-    {
-        "products": 
-        [
+    "results": {
+        "products": [
             {
                 "id": 1,
-                "name": "Fresa",
-                "price": 2.99,
-                "stock": 3
+                "name": "Cerveza Cristal",
+                "image": "cerveza_cristal.jpeg",
+                "price": 14,
+                "stock": true
             },
             {
                 "id": 2,
-                "name": "Manzana",
-                "price": 3.88,
-                "stock": 23
+                "name": "Lomo de cerdo deshuesado",
+                "image": "lomo.jpg",
+                "price": 18,
+                "stock": true
             },
             {
                 "id": 3,
-                "name": "Banana",
-                "price": 1.49,
-                "stock": 0
-            },
-            {
-                "id": 4,
-                "name": "Sandía",
-                "price": 3.01,
-                "stock": 52
-            },
-            {
-                "id": 5,
-                "name": "Mango",
-                "price": 4.99,
-                "stock": 8
+                "name": "Pierna de Cerdo",
+                "image": "pierna_cerdo.jpg",
+                "price": 13,
+                "stock": false
             }
         ]
     }
