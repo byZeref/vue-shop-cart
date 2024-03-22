@@ -1,5 +1,4 @@
 <template>
-  <!-- TODO change mobile menu -->
   <div class="navbar bg-base-100 shadow rounded-lg">
     <div class="navbar-start">
       <div class="dropdown">
@@ -21,6 +20,8 @@
               <li><a>Submenu 2</a></li>
             </ul>
           </li> -->
+          <!-- TODO show contact modal -->
+          
           <li><a>Contacto</a></li>
         </ul>
       </div>
