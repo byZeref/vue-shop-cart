@@ -6,7 +6,7 @@
   >
     <img
       class="h-48 w-full rounded-t-xl object-cover 2xl:h-40"
-      :src="`src/assets/images/${item.image}`"
+      :src="`/images/${item.image}`"
       :alt="`Imagen de ${item.name}`"
     />
 

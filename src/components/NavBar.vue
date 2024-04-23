@@ -9,24 +9,13 @@
           tabindex="0"
           class="menu menu-compact dropdown-content mt-3 p-2 shadow-lg bg-base-100 rounded-box w-40 md:w-52"
         >
-          <li><a>Inicio</a></li>
-          <!-- <li tabindex="0">
-            <a class="justify-between">
-              Parent
-              <ChevronRightIcon class="w-4 h-4" />
-            </a>
-            <ul class="p-2 bg-white shadow-lg">
-              <li><a>Submenu 1</a></li>
-              <li><a>Submenu 2</a></li>
-            </ul>
-          </li> -->
-          <!-- TODO show contact modal -->
-          
+          <li><RouterLink to="/">Inicio</RouterLink></li>
+          <li><RouterLink to="/productos">Productos</RouterLink></li>
           <li><a>Contacto</a></li>
         </ul>
       </div>
       <img
-        src="../assets/images/logo.png"
+        src="/images/logo.png"
         class="main-image desktop max-lg:hidden"
         alt="fruit-logo"
       />
@@ -34,24 +23,17 @@
         <!-- Masticando -->
       </RouterLink>
     </div>
-    <img
-      src="../assets/images/logo.png"
-      class="main-image lg:hidden"
-      alt="fruit-logo"
-    />
+    <img src="/images/logo.png" class="main-image lg:hidden" alt="fruit-logo" />
     <div class="navbar-center hidden lg:flex">
       <ul class="menu menu-horizontal px-1">
-        <li><a>Inicio</a></li>
-        <!-- <li tabindex="0">
-          <a>
-            Parent
-            <ChevronDownIcon class="w-4 h-4" />
-          </a>
-          <ul class="p-2 bg-white shadow-lg">
-            <li><a>Submenu 1</a></li>
-            <li><a>Submenu 2</a></li>
-          </ul>
-        </li> -->
+        <li>
+          <RouterLink to="/" class="max-lg:hidden">Inicio</RouterLink>
+        </li>
+        <li>
+          <RouterLink to="/productos" class="max-lg:hidden"
+            >Productos</RouterLink
+          >
+        </li>
         <li><a>Contacto</a></li>
       </ul>
     </div>
@@ -104,18 +86,18 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref } from "vue"
 import {
   Bars3CenterLeftIcon,
   ChevronDownIcon,
   ChevronRightIcon,
   ShoppingCartIcon,
-} from "@heroicons/vue/24/outline";
-import { useCartStore } from "../stores/cart";
-import CartModal from "../components/CartModal.vue";
+} from "@heroicons/vue/24/outline"
+import { useCartStore } from "../stores/cart"
+import CartModal from "../components/CartModal.vue"
 
-const store = useCartStore();
-const link_color = "#3ABFF8";
+const store = useCartStore()
+const link_color = "#3ABFF8"
 </script>
 
 <style lang="css">
@@ -133,6 +115,16 @@ ul > li > a:active {
 .navbar {
   position: fixed;
   width: calc(100% - 64px) !important;
+  max-width: calc(1536px - 64px);
+  box-sizing: border-box;
   z-index: 100;
+}
+.router-link-active,
+.router-link-exact-active {
+  background-color: #3abff8;
+  &:hover,
+  &:focus {
+    background-color: #3abff8;
+  }
 }
 </style>

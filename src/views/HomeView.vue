@@ -31,9 +31,8 @@
 </template>
 
 <script setup>
-import api_request from "../js/api_request";
 import Shop from "../components/Shop.vue";
-import { ref, onMounted } from "vue";
+import { onMounted } from "vue";
 import { useProductStore } from "../stores/product";
 import DropdownSort from "../components/DropdownSort.vue";
 import SearchFilter from "../components/SearchFilter.vue";
@@ -43,17 +42,15 @@ import { PRODUCTS } from '@/utils/constants'
 const productStore = useProductStore();
 
 onMounted(async () => {
-  // api_request(productStore.products);
+  productStore.setProducts(PRODUCTS)
   const { products: store_products } = productStore
-  PRODUCTS.forEach(item => {
-      store_products.push(item)
-  })
+
   store_products.sort((a, b) => {
       if (a.name > b.name) return 1
       if (a.name < b.name) return -1
       return 0
   })
-});
+})
 </script>
 
 <style></style>

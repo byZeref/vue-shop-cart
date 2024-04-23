@@ -6,6 +6,11 @@ export const useProductStore = defineStore('product', () => {
     const filter_products = ref(products.value)
     const empty_search = ref(false)
 
+    const setProducts = (prods) => {
+        products.value = [...prods]
+        filter_products.value = [...prods]
+    }
+
     const filterProds = ((value) => {
         (value) ? filter_products.value = products.value.filter(item => item.name.toLowerCase().includes(value))
             : (filter_products.value = products.value)
@@ -37,5 +42,5 @@ export const useProductStore = defineStore('product', () => {
         }
     }
 
-    return { products, filter_products, filterProds, empty_search, sortProds }
+    return { products, filter_products, filterProds, empty_search, sortProds, setProducts }
 })
