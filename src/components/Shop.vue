@@ -34,7 +34,7 @@
         @click="addToCart(item)"
         :class="[
           !availableProduct(item).bool ? 'disabled' : '',
-          'btn btn-block mt-8 bg-[#003399]',
+          'btn btn-block mt-8 bg-[#003399] hover:bg-[#003399]',
         ]"
       >
         Agregar al Carrito

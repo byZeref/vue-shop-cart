@@ -42,7 +42,7 @@
           <h3 class="font-semibold text-slate-600 md:text-lg uppercase">
             Teléfono
           </h3>
-          <a href="tel:5353466087"> +5353466087 </a>
+          <a :href="`tel:${PHONE_NUMBER}`"> +{{ PHONE_NUMBER }} </a>
         </div>
       </div>
       <div class="info-row">
@@ -51,7 +51,7 @@
           <h3 class="font-semibold text-slate-600 md:text-lg uppercase">
             WhatsApp
           </h3>
-          <a href="https://wa.me/5353466087" target="_blank"> +5353466087 </a>
+          <a :href="`https://wa.me/${PHONE_NUMBER}`" target="_blank"> +{{ PHONE_NUMBER }} </a>
         </div>
       </div>
       <label
@@ -64,7 +64,9 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { PHONE_NUMBER } from '@/utils/constants'
+</script>
 
 <style lang="css" scoped>
 .info-row {

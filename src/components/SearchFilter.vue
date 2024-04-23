@@ -8,7 +8,7 @@
           <MagnifyingGlassIcon
             id="search_icon"
             class="w-4 h-4"
-            :class="focus_search ? 'text-emerald-500' : ''"
+            :class="focus_search ? 'text-[#003399]' : ''"
           />
         </span>
       </div>
@@ -16,7 +16,7 @@
         type="text"
         v-model="filter_input"
         @keyup="filterProducts"
-        class="block shadow-lg mb-1 w-52 md:w-full text-slate-500 rounded-md pl-7 pr-12 border-none hover:duration-100 focus:duration-100 hover:border-emerald-500 focus:border-emerald-500 focus:ring-emerald-500 focus:caret-emerald-500 text-sm"
+        class="block shadow-lg mb-1 w-52 md:w-full text-slate-500 rounded-md pl-7 pr-12 border-none hover:duration-100 focus:duration-100 hover:border-[#003399] focus:border-[#003399] focus:ring-[#003399] focus:caret-[#003399] text-sm"
         placeholder="Buscar Producto..."
         @focusin="toogleFocus"
         @focusout="toogleFocus"

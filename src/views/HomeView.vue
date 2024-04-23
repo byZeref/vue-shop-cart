@@ -42,14 +42,19 @@ import { PRODUCTS } from "@/utils/constants"
 const productStore = useProductStore()
 
 onMounted(async () => {
-  productStore.setProducts(PRODUCTS)
-  const { products: store_products } = productStore
-
-  store_products.sort((a, b) => {
-    if (a.name > b.name) return 1
-    if (a.name < b.name) return -1
+  PRODUCTS.sort((a, b) => {
+    if (a.stock && !b.stock) return -1
+    if (!a.stock && !b.stock) return 1
     return 0
   })
+  productStore.setProducts(PRODUCTS)
+  
+  // const { products: store_products } = productStore
+  // store_products.sort((a, b) => {
+  //   if (a.name > b.name) return 1
+  //   if (a.name < b.name) return -1
+  //   return 0
+  // })
 })
 </script>
 

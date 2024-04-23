@@ -20,23 +20,23 @@ export const useProductStore = defineStore('product', () => {
 
     const sortProds = (value) => {
         if (value === 'nombre') {
-            products.value.sort((a, b) => {
+            filter_products.value.sort((a, b) => {
                 if (a.name > b.name) return 1
                 if (a.name < b.name) return -1
                 return 0
             })
         }
-        if (value === 'precio') {
-            products.value.sort((a, b) => {
+        else if (value === 'precio') {
+            filter_products.value.sort((a, b) => {
                 if (a.price > b.price) return 1
                 if (a.price < b.price) return -1
                 return 0
             })
         }
-        if (value === 'disponibilidad') {
-            products.value.sort((a, b) => {
-                if (a.stock > b.stock) return -1
-                if (a.stock < b.stock) return 1
+        else if (value === 'disponibilidad') {
+            filter_products.value.sort((a, b) => {
+                if (a.stock && !b.stock) return -1
+                if (!a.stock && b.stock) return 1
                 return 0
             })
         }

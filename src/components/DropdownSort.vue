@@ -39,7 +39,7 @@
             >
               <li
                 :class="[
-                  active ? 'bg-emerald-100 text-emerald-800' : 'text-gray-900',
+                  active ? 'bg-[#b7c3e6] text-[#003399]' : 'text-gray-900',
                   'relative cursor-pointer select-none py-2 pl-10 pr-4',
                 ]"
               >
@@ -52,7 +52,7 @@
                 >
                 <span
                   v-if="selected"
-                  class="absolute inset-y-0 left-0 flex items-center pl-3 text-emerald-600"
+                  class="absolute inset-y-0 left-0 flex items-center pl-3 text-[#003399]"
                 >
                   <CheckIcon class="h-5 w-5" aria-hidden="true" />
                 </span>
@@ -66,23 +66,23 @@
 </template>
 
 <script setup>
-import { ref, watch } from "vue";
-import { useProductStore } from "../stores/product";
+import { ref, watch } from "vue"
+import { useProductStore } from "../stores/product"
 import {
   Listbox,
   ListboxButton,
   ListboxOptions,
   ListboxOption,
-} from "@headlessui/vue";
-import { CheckIcon, ChevronUpDownIcon } from "@heroicons/vue/20/solid";
+} from "@headlessui/vue"
+import { CheckIcon, ChevronUpDownIcon } from "@heroicons/vue/20/solid"
 
-const productStore = useProductStore();
-const options = ref(["Nombre", "Precio", "Disponibilidad"]);
-const selected = ref(options.value[0]);
+const productStore = useProductStore()
+const options = ref(["Disponibilidad", "Precio", "Nombre"])
+const selected = ref(options.value[0])
 
 watch(selected, () => {
-  productStore.sortProds(selected.value.toLocaleLowerCase());
-});
+  productStore.sortProds(selected.value.toLocaleLowerCase())
+})
 </script>
 
 <style scoped>
