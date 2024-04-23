@@ -11,7 +11,9 @@
         >
           <li><RouterLink to="/">Inicio</RouterLink></li>
           <li><RouterLink to="/productos">Productos</RouterLink></li>
-          <li><a>Contacto</a></li>
+          <li>
+            <label for="contact-modal">Contacto</label>
+          </li>
         </ul>
       </div>
       <img
@@ -34,7 +36,7 @@
             >Productos</RouterLink
           >
         </li>
-        <li><a>Contacto</a></li>
+        <li><label for="contact-modal">Contacto</label></li>
       </ul>
     </div>
     <div class="navbar-end">
@@ -83,6 +85,7 @@
   </div>
 
   <CartModal />
+  <ContactModal />
 </template>
 
 <script setup>
@@ -95,13 +98,16 @@ import {
 } from "@heroicons/vue/24/outline"
 import { useCartStore } from "../stores/cart"
 import CartModal from "../components/CartModal.vue"
+import ContactModal from "../components/ContactModal.vue"
 
 const store = useCartStore()
-const link_color = "#3ABFF8"
+const link_color = "#003399"
+const showContactModal = ref(false)
 </script>
 
 <style lang="css">
-ul > li > a:active {
+ul > li > a:active,
+ul > li > label:active {
   background-color: v-bind(link_color);
 }
 .main-image {
@@ -121,10 +127,11 @@ ul > li > a:active {
 }
 .router-link-active,
 .router-link-exact-active {
-  background-color: #3abff8;
+  background-color: #003399;
+  color: #fff !important;
   &:hover,
   &:focus {
-    background-color: #3abff8;
+    background-color: #003399;
   }
 }
 </style>

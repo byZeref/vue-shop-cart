@@ -20,7 +20,7 @@
       >
         <ExclamationTriangleIcon class="h-8 w-8 text-slate-600" />
         <div class="flex items-center">
-          <h3 class="md:text-xl text-slate-600">
+          <h3 class="md:text-xl text-slate-600 max-sm:text-center">
             <span class="text-slate-600 font-semibold">Upss!!</span>
             No se encontraron resultados en la búsqueda.
           </h3>
@@ -31,24 +31,24 @@
 </template>
 
 <script setup>
-import Shop from "../components/Shop.vue";
-import { onMounted } from "vue";
-import { useProductStore } from "../stores/product";
-import DropdownSort from "../components/DropdownSort.vue";
-import SearchFilter from "../components/SearchFilter.vue";
-import { ExclamationTriangleIcon } from "@heroicons/vue/24/outline";
-import { PRODUCTS } from '@/utils/constants'
+import Shop from "../components/Shop.vue"
+import { onMounted } from "vue"
+import { useProductStore } from "../stores/product"
+import DropdownSort from "../components/DropdownSort.vue"
+import SearchFilter from "../components/SearchFilter.vue"
+import { ExclamationTriangleIcon } from "@heroicons/vue/24/outline"
+import { PRODUCTS } from "@/utils/constants"
 
-const productStore = useProductStore();
+const productStore = useProductStore()
 
 onMounted(async () => {
   productStore.setProducts(PRODUCTS)
   const { products: store_products } = productStore
 
   store_products.sort((a, b) => {
-      if (a.name > b.name) return 1
-      if (a.name < b.name) return -1
-      return 0
+    if (a.name > b.name) return 1
+    if (a.name < b.name) return -1
+    return 0
   })
 })
 </script>

@@ -15,39 +15,30 @@
         id="heading"
         class="mb-2 md:mb-1 flex flex-col items-start md:flex-row md:justify-between md:items-center gap-1"
       >
-        <h3 class="text-lg font-semibold uppercase text-sky-500">
+        <h3 class="text-lg font-semibold uppercase text-[#003399]">
           {{ item.name }}
         </h3>
         <span
           :class="[
             availableProduct(item).bool
               ? 'bg-emerald-400'
-              : 'bg-red-400 min-w-[93px]',
-            'text-xs font-semibold rounded-sm px-2 py-1',
+              : 'bg-red-400 min-w-[80px]',
+            'text-xs font-semibold rounded-sm px-2 py-1 text-center',
           ]"
         >
           {{ availableProduct(item).msg }}
         </span>
       </div>
       <p class="text-slate-500 mb-1">Precio: ${{ item.price }}.00</p>
-      <!-- <p class="text-slate-500">
-                Stock:
-                <span class="counter font-semibold">{{ item.stock }}</span>
-                {{ item.stock === 1 ? 'unidad' : 'unidades' }}
-            </p> -->
       <button
         @click="addToCart(item)"
         :class="[
           !availableProduct(item).bool ? 'disabled' : '',
-          'btn btn-info btn-block mt-8',
+          'btn btn-block mt-8 bg-[#003399]',
         ]"
       >
         Agregar al Carrito
       </button>
-      <!-- <button @click="addToCart(item)"
-                :class="[outOfStock(item) ? 'disabled' : '', 'btn btn-info btn-block mt-8']">
-                Agregar al Carrito
-            </button> -->
     </div>
   </div>
 
@@ -55,42 +46,22 @@
 </template>
 
 <script setup>
-import { useProductStore } from "../stores/product";
-import { useCartStore } from "../stores/cart";
+import { useProductStore } from "../stores/product"
+import { useCartStore } from "../stores/cart"
 
-const productStore = useProductStore();
-const cartStore = useCartStore();
-
-// const goTop = () => {
-//     window.scroll(0, 0)
-// }
+const productStore = useProductStore()
+const cartStore = useCartStore()
 
 const addToCart = (item) => {
-  cartStore.add(item);
-};
-
-const outOfStock = (prod) => {
-  const cart_prod = cartStore.cart.find((el) => el.id === prod.id);
-
-  if (cart_prod) {
-    return prod.stock <= cart_prod.cant ? true : false;
-  } else {
-    return prod.stock === 0 ? true : false;
-  }
-};
+  cartStore.add(item)
+}
 
 const availableProduct = (prod) => {
   return {
-    msg: prod.stock ? "Disponible" : "No disponible",
+    msg: prod.stock ? "Disponible" : "Agotado",
     bool: prod.stock,
-  };
-};
-// const availableProduct = (prod) => {
-//   return {
-//     msg: prod.stock > 0 ? "Disponible" : "No disponible",
-//     bool: prod.stock > 0 ? true : false,
-//   };
-// };
+  }
+}
 </script>
 
 <style lang="css" scoped>
