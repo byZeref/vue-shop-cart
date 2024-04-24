@@ -32,29 +32,46 @@
 
 <script setup>
 import Shop from "../components/Shop.vue"
-import { onMounted } from "vue"
-import { useProductStore } from "../stores/product"
 import DropdownSort from "../components/DropdownSort.vue"
 import SearchFilter from "../components/SearchFilter.vue"
+import { onMounted, ref } from "vue"
+import { useProductStore } from "../stores/product"
 import { ExclamationTriangleIcon } from "@heroicons/vue/24/outline"
 import { PRODUCTS } from "@/utils/constants"
+import { supabase } from '@/lib/supabaseClient'
 
 const productStore = useProductStore()
+const loading = ref(false)
+const products = ref([])
 
-onMounted(async () => {
-  PRODUCTS.sort((a, b) => {
+const getProducts = async () => {
+  loading.value = true
+  const { data } = await supabase.from('products').select() //.limit(2)
+  if (data) {
+    console.log('products data', data)
+    products.value = data
+    sortProducts(products.value)
+  }
+  loading.value = false
+}
+
+const sortProducts = (prods) => {
+  prods.sort((a, b) => {
     if (a.stock && !b.stock) return -1
     if (!a.stock && !b.stock) return 1
     return 0
   })
-  productStore.setProducts(PRODUCTS)
-  
-  // const { products: store_products } = productStore
-  // store_products.sort((a, b) => {
-  //   if (a.name > b.name) return 1
-  //   if (a.name < b.name) return -1
+  productStore.setProducts(prods)
+}
+
+onMounted(async () => {
+  // PRODUCTS.sort((a, b) => {
+  //   if (a.stock && !b.stock) return -1
+  //   if (!a.stock && !b.stock) return 1
   //   return 0
   // })
+  // productStore.setProducts(PRODUCTS)
+  getProducts()
 })
 </script>
 
