@@ -2,6 +2,7 @@
 import { onMounted } from "vue";
 import { RouterLink, RouterView } from "vue-router";
 import NavBar from "./components/NavBar.vue";
+import Footer from "./components/Footer.vue";
 
 const handleScroll = () => {
   const el = document.querySelector(".backdrop");
@@ -19,10 +20,13 @@ onMounted(() => window.addEventListener("scroll", () => handleScroll()))
     <NavBar />
   </section>
 
-  <section class="mt-20">
+  <section class="mt-20 mb-10">
     <RouterView />
   </section>
-  <!-- TODO footer -->
+
+  <section class="mt-auto">
+    <Footer />
+  </section>
 </template>
 
 <style scoped>

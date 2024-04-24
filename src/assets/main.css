@@ -5,4 +5,13 @@
   margin: 0 auto;
   padding: 2rem;
   font-weight: normal;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (width < 768px) {
+  #app {
+    padding-bottom: 16px;
+  }
 }
