@@ -1,14 +1,14 @@
 <template>
   <input type="checkbox" id="contact-modal" class="modal-toggle" />
   <div class="modal max-md:modal-bottom">
-    <div class="modal-box w-full md:max-w-xl">
+    <div class="modal-box bg-white w-full md:max-w-xl">
       <img
         src="/images/logo.png"
         class="w-full h-auto mt-5 mb-10"
         alt="main-logo"
       />
       <div class="info-row">
-        <img src="@/assets/icons/certificate.svg" class="w-7 -mt-1 -mt-1" alt="icon" />
+        <img src="@/assets/icons/certificate.svg" class="w-7 -mt-1" alt="icon" />
         <div>
           <h3 class="font-semibold text-slate-600 md:text-lg uppercase">
             Nombre de la empresa

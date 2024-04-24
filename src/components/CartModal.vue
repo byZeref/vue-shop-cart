@@ -1,17 +1,14 @@
 <template>
   <input type="checkbox" id="cart-modal" class="modal-toggle" />
   <div class="modal max-md:modal-bottom">
-    <div v-if="!cartStore.empty" class="modal-box w-full md:max-w-3xl">
+    <div v-if="!cartStore.empty" class="modal-box bg-white w-full md:max-w-3xl">
       <div
         class="flex items-center justify-between border-b border-slate-300 pb-4 px-1 md:px-2"
       >
         <h3 class="font-semibold text-slate-600 md:text-lg uppercase">
           Carrito de Compras
         </h3>
-        <button
-          @click="clearCart"
-          class="btn btn-outline btn-error btn-sm text-xs"
-        >
+        <button @click="clearCart" class="btn btn-outline btn-error btn-sm text-xs">
           Vaciar Carrito
         </button>
       </div>
@@ -113,7 +110,7 @@
       </div>
     </div>
     <!-- CARRITO VACIO -->
-    <div v-else class="modal-box w-full md:max-w-3xl">
+    <div v-else class="modal-box bg-white w-full md:max-w-3xl">
       <div :class="`text-${modalInfoCss}`">
         <p class="flex items-center font-semibold text-sm md:text-lg">
           <InformationCircleIcon
@@ -125,9 +122,7 @@
         </p>
       </div>
       <div class="modal-action">
-        <label for="cart-modal" :class="`btn btn-${modalInfoCss}`"
-          >Aceptar</label
-        >
+        <label for="cart-modal" :class="`btn btn-${modalInfoCss}`">Aceptar</label>
       </div>
     </div>
   </div>

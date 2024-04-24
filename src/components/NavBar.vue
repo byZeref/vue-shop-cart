@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar bg-base-100 shadow rounded-lg">
+  <div class="navbar bg-white shadow rounded-lg">
     <div class="navbar-start">
       <div class="dropdown">
         <label tabindex="0" class="btn btn-ghost p-1 lg:hidden">
@@ -7,7 +7,7 @@
         </label>
         <ul
           tabindex="0"
-          class="menu menu-compact dropdown-content mt-3 p-2 shadow-lg bg-base-100 rounded-box w-40 md:w-52"
+          class="menu menu-compact dropdown-content mt-3 p-2 shadow-lg bg-white rounded-box w-40 md:w-52"
         >
           <li><RouterLink to="/">Inicio</RouterLink></li>
           <li><RouterLink to="/productos">Productos</RouterLink></li>
@@ -32,9 +32,7 @@
           <RouterLink to="/" class="max-lg:hidden">Inicio</RouterLink>
         </li>
         <li>
-          <RouterLink to="/productos" class="max-lg:hidden"
-            >Productos</RouterLink
-          >
+          <RouterLink to="/productos" class="max-lg:hidden">Productos</RouterLink>
         </li>
         <li><label for="contact-modal">Contacto</label></li>
       </ul>
@@ -44,16 +42,14 @@
         <label tabindex="0" class="btn btn-ghost btn-circle">
           <div class="indicator">
             <ShoppingCartIcon class="w-6 h-6" />
-            <span
-              v-if="store.counter > 0"
-              class="badge badge-sm bg-accent border-none indicator-item"
-              >{{ store.counter }}</span
-            >
+            <span v-if="store.counter > 0" class="badge badge-sm bg-accent text-white border-none indicator-item">
+              {{ store.counter }}
+            </span>
           </div>
         </label>
         <div
           tabindex="0"
-          class="mt-3 card card-compact dropdown-content w-60 bg-base-100 shadow"
+          class="mt-3 card card-compact dropdown-content w-60 bg-white shadow"
         >
           <div class="card-body">
             <span class="font-bold text-lg text-slate-600">
@@ -64,13 +60,9 @@
                   : "Productos Agregados"
               }}
             </span>
-            <span class="text-slate-500"
-              >Subtotal: ${{ store.mount.toFixed(2) }}</span
-            >
+            <span class="text-slate-500">Subtotal: ${{ store.mount.toFixed(2) }}</span>
             <div class="card-actions">
-              <label
-                for="cart-modal"
-                :class="[
+              <label for="cart-modal" :class="[
                   store.counter === 0 ? 'disabled' : '',
                   'btn btn-outline btn-accent btn-block',
                 ]"
