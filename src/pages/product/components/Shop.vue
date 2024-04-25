@@ -29,7 +29,7 @@
           {{ availableProduct(item).msg }}
         </span>
       </div>
-      <p class="text-slate-500 mb-1">Precio: ${{ item.price }}.00</p>
+      <p class="text-slate-500 mb-1">Precio: ${{ item.price.toFixed(2) }}</p>
       <button
         @click="addToCart(item)"
         :class="[

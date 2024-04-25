@@ -6,14 +6,12 @@
         <SearchFilter />
         <DropdownSort />
       </div>
-      <div>
-        <button 
-          onclick="product_modal.showModal()" 
-          :class="['btn btn-block btn-success']"
-        >
-          NUEVO PRODUCTO
-        </button>
-      </div>
+      <button 
+        onclick="product_modal.showModal()" 
+        :class="['btn btn-success']"
+      >
+        NUEVO PRODUCTO
+      </button>
     </div>
     <!-- PRODUCTS CARDS -->
     <div
