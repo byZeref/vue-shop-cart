@@ -1,10 +1,18 @@
 <template>
   <div id="container" class="flex flex-col mt-3">
     <!-- HEADER -->
-    <div class="flex flex-col md:flex-row justify-between mb-6 ml-2">
+    <div class="flex flex-col gap-4 md:flex-row md:items-center max-md:flex-col-reverse justify-between mb-6 ml-2">
       <div class="flex flex-col md:flex-row md:space-x-2">
         <SearchFilter />
         <DropdownSort />
+      </div>
+      <div>
+        <button 
+          onclick="product_modal.showModal()" 
+          :class="['btn btn-block btn-success']"
+        >
+          NUEVO PRODUCTO
+        </button>
       </div>
     </div>
     <!-- PRODUCTS CARDS -->
@@ -28,16 +36,18 @@
       </div>
     </div>
   </div>
+  
+  <ProductModal />
 </template>
 
 <script setup>
 import Shop from "../components/Shop.vue"
 import DropdownSort from "../components/DropdownSort.vue"
 import SearchFilter from "../components/SearchFilter.vue"
+import ProductModal from '@/components/ProductModal.vue'
 import { onMounted, ref } from "vue"
 import { useProductStore } from "../stores/product"
 import { ExclamationTriangleIcon } from "@heroicons/vue/24/outline"
-import { PRODUCTS } from "@/utils/constants"
 import { supabase } from '@/lib/supabaseClient'
 
 const productStore = useProductStore()
@@ -50,7 +60,6 @@ const getProducts = async () => {
   if (data) {
     console.log('products data', data)
     products.value = data
-    sortProducts(products.value)
   }
   loading.value = false
 }
@@ -65,13 +74,8 @@ const sortProducts = (prods) => {
 }
 
 onMounted(async () => {
-  // PRODUCTS.sort((a, b) => {
-  //   if (a.stock && !b.stock) return -1
-  //   if (!a.stock && !b.stock) return 1
-  //   return 0
-  // })
-  // productStore.setProducts(PRODUCTS)
-  getProducts()
+  await getProducts()
+  sortProducts(products.value)
 })
 </script>
 

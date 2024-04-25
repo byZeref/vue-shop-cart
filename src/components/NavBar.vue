@@ -28,7 +28,7 @@
     </div>
     <img src="/images/logo.png" class="main-image lg:hidden" alt="fruit-logo" />
     <div class="navbar-center hidden lg:flex">
-      <ul class="menu menu-horizontal px-1">
+      <ul class="menu menu-horizontal px-1 gap-x-1">
         <li>
           <RouterLink to="/" class="max-lg:hidden">Inicio</RouterLink>
         </li>
@@ -100,7 +100,7 @@ const dropdownVisible = ref(true)
 const dropdownCartVisible = ref(true)
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
 ul > li > a:active,
 ul > li > label:active {
   background-color: v-bind(link_color);
@@ -120,12 +120,12 @@ ul > li > label:active {
   box-sizing: border-box;
   z-index: 100;
 }
+
 .router-link-active,
 .router-link-exact-active {
   background-color: #003399;
   color: #fff !important;
-  &:hover,
-  &:focus {
+  &:hover, &:focus {
     background-color: #003399;
   }
 }

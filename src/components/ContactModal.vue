@@ -56,9 +56,9 @@
       </div>
       <label
         for="contact-modal"
-        class="btn bg-[#003399] hover:bg-[#003399] hover:opacity-[0.95] flex items-center ml-auto mt-7"
+        class="btn bg-[#003399] hover:bg-[#003399] text-white hover:opacity-[0.95] flex items-center ml-auto mt-7"
       >
-        cerrar
+        CERRAR
       </label>
     </div>
   </div>

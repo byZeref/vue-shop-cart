@@ -103,10 +103,10 @@
             class="flex items-center gap-1"
           >
             <WhatsApp />
-            Realizar el pedido
+            REALIZAR EL PEDIDO
           </a>
         </button>
-        <label for="cart-modal" class="btn">cerrar</label>
+        <label for="cart-modal" class="btn">CERRAR</label>
       </div>
     </div>
     <!-- CARRITO VACIO -->
@@ -122,7 +122,7 @@
         </p>
       </div>
       <div class="modal-action">
-        <label for="cart-modal" :class="`btn btn-${modalInfoCss}`">Aceptar</label>
+        <label for="cart-modal" :class="`btn btn-${modalInfoCss}`">CERRAR</label>
       </div>
     </div>
   </div>
