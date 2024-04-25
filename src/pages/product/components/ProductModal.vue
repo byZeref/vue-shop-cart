@@ -53,7 +53,7 @@
 </template>
 
 <script setup>
-import { ref, watchEffect } from 'vue'
+import { ref } from 'vue'
 
 const emit = defineEmits(['submit'])
 const modal = ref()
@@ -78,13 +78,6 @@ const submit = async () => {
   }, 2000);
 }
 
-
-// watchEffect(() => {
-//   if (form.value.price) {
-//     error.value.price = !NUM_REG_EX.test(form.value.price)
-//     console.log(error.value.price)
-//   }
-// })
 </script>
 
 <style lang="css" scoped>

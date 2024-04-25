@@ -41,12 +41,12 @@
 </template>
 
 <script setup>
-import Shop from "../components/Shop.vue"
-import DropdownSort from "../components/DropdownSort.vue"
-import SearchFilter from "../components/SearchFilter.vue"
-import ProductModal from '@/components/ProductModal.vue'
+import DropdownSort from "@/components/DropdownSort.vue"
+import SearchFilter from "@/components/SearchFilter.vue"
+import Shop from "./components/Shop.vue"
+import ProductModal from './components/ProductModal.vue'
 import { onMounted, ref } from "vue"
-import { useProductStore } from "../stores/product"
+import { useProductStore } from "@/stores/product"
 import { ExclamationTriangleIcon } from "@heroicons/vue/24/outline"
 import { supabase } from '@/lib/supabaseClient'
 

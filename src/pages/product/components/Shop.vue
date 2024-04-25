@@ -41,13 +41,11 @@
       </button>
     </div>
   </div>
-
-  <!-- <button @click="goTop" class="btn">TOP</button> -->
 </template>
 
 <script setup>
-import { useProductStore } from "../stores/product"
-import { useCartStore } from "../stores/cart"
+import { useProductStore } from "@/stores/product"
+import { useCartStore } from "@/stores/cart"
 
 const productStore = useProductStore()
 const cartStore = useCartStore()
