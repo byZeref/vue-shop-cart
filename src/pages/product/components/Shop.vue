@@ -6,7 +6,7 @@
   >
     <img
       class="h-48 w-full rounded-t-xl object-cover 2xl:h-40"
-      :src="`/images/${item.image}`"
+      :src="`${IMAGES_PATH}/${item.image}`"
       :alt="`Imagen de ${item.name}`"
     />
 
@@ -49,6 +49,7 @@ import { useCartStore } from "@/stores/cart"
 
 const productStore = useProductStore()
 const cartStore = useCartStore()
+const IMAGES_PATH = `${import.meta.env.VITE_PROJECT_URL}/${import.meta.env.VITE_IMAGES_PATH}`
 
 const addToCart = (item) => {
   cartStore.add(item)

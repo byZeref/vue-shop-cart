@@ -35,7 +35,7 @@
     </div>
   </div>
   
-  <ProductModal />
+  <ProductModal @refresh="refresh" />
 </template>
 
 <script setup>
@@ -52,6 +52,7 @@ const productStore = useProductStore()
 const loading = ref(false)
 const products = ref([])
 
+// TODO extraer logica a 'services'
 const getProducts = async () => {
   loading.value = true
   const { data } = await supabase.from('products').select() //.limit(2)
@@ -69,6 +70,11 @@ const sortProducts = (prods) => {
     return 0
   })
   productStore.setProducts(prods)
+}
+
+const refresh = async () => {
+  await getProducts()
+  sortProducts(products.value)
 }
 
 onMounted(async () => {

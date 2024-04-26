@@ -1,8 +1,8 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 
 const emit = defineEmits(['submit'])
-defineProps({
+const props = defineProps({
   product: {
     type: Object,
     required: false,
@@ -10,7 +10,11 @@ defineProps({
   modal: {
     type: Object,
     required: true,
-  }
+  },
+  submitting: {
+    type: Boolean,
+    required: true,
+  },
 })
 
 const form = ref({
@@ -23,6 +27,11 @@ const file = ref()
 const imagePreview = ref()
 
 const previewImage = () => {
+  if (!file.value.files[0].type.includes('image')) {
+    file.value.value = null
+    return;
+  }
+
   form.value.image = file.value.files[0] // ev.target.files[0]
   console.log(form.value.image)
 
@@ -30,7 +39,7 @@ const previewImage = () => {
     const reader = new FileReader()
     reader.onload = (e) => {
         imagePreview.value = e.target.result
-    };
+    }
     reader.readAsDataURL(form.value.image)
   } else {
     imagePreview.value = null
@@ -41,9 +50,7 @@ const submit = () => {
   // validate form
 
   // trigger event submit
-  console.log('submit', form.value)
   emit('submit', form.value)
-  reset()
 }
 
 const reset = () => {
@@ -57,9 +64,13 @@ const reset = () => {
   file.value.value = null
 }
 
+watch(() => props.submitting, (newV, oldV) => {
+  if (newV === false && oldV === true) reset()
+})
 </script>
 
 <template>
+  <!-- TODO disable when submitting -->
   <form @submit.prevent="submit" class="flex flex-col gap-4">
     <!-- NAME -->
     <input
@@ -75,7 +86,7 @@ const reset = () => {
       placeholder="Precio" 
       :class="['input input-bordered bg-white w-full']"
     />
-    <!--! IMAGE -->
+    <!-- IMAGE -->
     <input
       @change="previewImage"
       ref="file"
@@ -83,7 +94,12 @@ const reset = () => {
       accept="image/*"
       class="file-input file-input-ghost file-input-bordered w-full bg-white" 
     />
-    <img v-if="imagePreview" ref="image" class="w-full" :src="imagePreview" alt="">
+    <img 
+      v-if="imagePreview"
+      :src="imagePreview" alt=""
+      ref="image"
+      class="w-auto max-h-[300px] object-contain"
+    >
     <!-- STOCK -->
     <div class="form-control">
       <label class="label cursor-pointer justify-start gap-x-3">
@@ -110,6 +126,7 @@ const reset = () => {
         type="submit"
         class="btn btn-success hover:opacity-[0.95] flex items-center"
       >
+        <span v-if="submitting" class="loading loading-spinner loading-xs"></span>
         GUARDAR
       </button>
     </div>

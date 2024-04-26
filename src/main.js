@@ -4,6 +4,7 @@ import App from './App.vue'
 import router from './router'
 import VueSweetalert2 from 'vue-sweetalert2'; // Sweet Alert
 
+import 'vue3-toastify/dist/index.css';
 import './assets/main.css'
 import './assets/styles.css' // Tailwind
 import 'sweetalert2/dist/sweetalert2.min.css'; // Sweet Alert
