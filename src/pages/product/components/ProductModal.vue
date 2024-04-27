@@ -14,6 +14,9 @@ import Form from './Form.vue'
 import { ref } from 'vue'
 import { supabase } from '@/lib/supabaseClient.js'
 import { toast } from 'vue3-toastify'
+import { notify } from '@/helpers/notify'
+import { NOTIFICATION } from '@/utils/constants'
+const { NOTIFY_SUCCESS, NOTIFY_ERROR } = NOTIFICATION
 
 defineProps({
   product: {
@@ -46,18 +49,10 @@ const submit = async (form) => {
   if (status === 201) {
     modal.value.close()
     emit('refresh')
-    toast('Producto agregado correctamente!', {
-      theme: 'light',
-      type: 'success',
-      pauseOnFocusLoss: false,
-    })
+    notify(NOTIFY_SUCCESS)
   } else if (error) {
     console.error('error on create product', error)
-    toast('Error! No se pudo agregar el producto.', {
-      theme: 'light',
-      type: 'error',
-      pauseOnFocusLoss: false,
-    })
+    notify(NOTIFY_ERROR)
   }
 }
 

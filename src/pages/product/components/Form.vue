@@ -70,7 +70,6 @@ watch(() => props.submitting, (newV, oldV) => {
 </script>
 
 <template>
-  <!-- TODO disable when submitting -->
   <form @submit.prevent="submit" class="flex flex-col gap-4">
     <!-- NAME -->
     <input
@@ -78,6 +77,7 @@ watch(() => props.submitting, (newV, oldV) => {
       type="text"
       placeholder="Nombre"
       :class="['input input-bordered bg-white w-full']"
+      :disabled="submitting"
     />
     <!-- PRICE -->
     <input 
@@ -85,6 +85,7 @@ watch(() => props.submitting, (newV, oldV) => {
       type="text" min="0" 
       placeholder="Precio" 
       :class="['input input-bordered bg-white w-full']"
+      :disabled="submitting"
     />
     <!-- IMAGE -->
     <input
@@ -92,7 +93,8 @@ watch(() => props.submitting, (newV, oldV) => {
       ref="file"
       type="file"
       accept="image/*"
-      class="file-input file-input-ghost file-input-bordered w-full bg-white" 
+      class="file-input file-input-ghost file-input-bordered w-full bg-white"
+      :disabled="submitting"
     />
     <img 
       v-if="imagePreview"
@@ -107,6 +109,7 @@ watch(() => props.submitting, (newV, oldV) => {
           v-model="form.stock"
           type="checkbox"
           class="checkbox checkbox-success" 
+          :disabled="submitting"
         />
         <span class="text-slate-500 text-base">Disponible</span> 
       </label>
@@ -114,7 +117,10 @@ watch(() => props.submitting, (newV, oldV) => {
     <!-- BUTTONS -->
     <div class="buttons flex justify-end gap-x-4 mt-5">
       <label
-        class="btn btn-outline hover:opacity-[0.95] flex items-center"
+        :class="[
+          'btn btn-outline hover:opacity-[0.95] flex items-center',
+          { 'pointer-events-none opacity-70' : submitting }
+        ]"
         @click="() => {
           modal.close()
           reset()
@@ -124,7 +130,10 @@ watch(() => props.submitting, (newV, oldV) => {
       </label>
       <button
         type="submit"
-        class="btn btn-success hover:opacity-[0.95] flex items-center"
+        :class="[
+          'btn btn-success hover:opacity-[0.95] flex items-center',
+          { 'pointer-events-none opacity-70' : submitting }
+        ]"
       >
         <span v-if="submitting" class="loading loading-spinner loading-xs"></span>
         GUARDAR

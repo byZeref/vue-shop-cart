@@ -10,6 +10,12 @@
   flex-direction: column;
 }
 
+.input-disabled, .input:disabled, .input[disabled], .file-input-disabled, .file-input[disabled] {
+  background-color: #f2ecec !important;
+  border-color: #f2ecec !important;
+  color: #323232 !important;
+}
+
 @media (width < 768px) {
   #app {
     padding-bottom: 16px;

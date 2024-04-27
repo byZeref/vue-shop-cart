@@ -1,9 +1,9 @@
 import { toast } from 'vue3-toastify'
 
-export const notifySuccess = () => {
+export const notify = (type) => {
   toast('Producto agregado correctamente!', {
     theme: 'light',
-    type: 'success',
     pauseOnFocusLoss: false,
+    type,
   })
 }
