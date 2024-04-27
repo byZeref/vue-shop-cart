@@ -4,7 +4,7 @@
       <h4 class="text-xl font-semibold text-slate-700 mb-4">NUEVO PRODUCTO</h4>
       <p class="mb-1 text-slate-600">Inserte los datos del nuevo producto</p>
 
-      <Form @submit="submit" :modal="modal" :submitting="submitting" />
+      <Form @submit="submit" :modal="modal" :submitting="submitting" :errors="errors" />
     </div>
   </dialog>
 </template>
@@ -12,11 +12,11 @@
 <script setup>
 import Form from './Form.vue'
 import { ref } from 'vue'
-import { supabase } from '@/lib/supabaseClient.js'
-import { toast } from 'vue3-toastify'
+import { createProductService, uploadImageService } from '@/services/products'
 import { notify } from '@/helpers/notify'
-import { NOTIFICATION } from '@/utils/constants'
+import { NOTIFICATION, MESSAGES } from '@/utils/constants'
 const { NOTIFY_SUCCESS, NOTIFY_ERROR } = NOTIFICATION
+const { MSG_CREATED_PROD, MSG_ERROR_CREATE_PROD, MSG_ERROR_UPLOAD_IMAGE } = MESSAGES
 
 defineProps({
   product: {
@@ -27,53 +27,45 @@ defineProps({
 const emit = defineEmits(['refresh'])
 const modal = ref()
 const submitting = ref(false)
+const errors = ref(false)
 
 const submit = async (form) => {
-  console.log('form data', form)
   submitting.value = true
-  // upload image
+  let img
   if (form.image) {
-    const { data, error } = await uploadImage(form.image, form.name)
-    console.log('upload image response', data)
-    if (data) {
-      form.image = data.path
-    } else if (error) {
-      console.error('error on upload image', error);
-    }
+    img = form.image
+    const ext = img?.type.substring(6) // type: "image/..."
+    const fileName = `${form.name.toLowerCase().replaceAll(' ', '-')}.${ext}`
+    form.image = `products/${fileName}`
   }
-  // create product
-  const { status, error } = await createProduct(form)
-  console.log('create product status', status)
-  submitting.value = false
+
+  const { status, error } = await createProductService(form)
   
   if (status === 201) {
-    modal.value.close()
-    emit('refresh')
-    notify(NOTIFY_SUCCESS)
+    if (img) {
+      const { data, error } = await uploadImageService(img, form.image)
+      if (data) {
+        productCreatedOk()
+      } else if (error) {
+        errors.value = true
+        form.image = img
+        notify(NOTIFY_ERROR, MSG_ERROR_UPLOAD_IMAGE)
+      }
+    } else {
+      productCreatedOk()
+    }
   } else if (error) {
-    console.error('error on create product', error)
-    notify(NOTIFY_ERROR)
+    errors.value = true
+    notify(NOTIFY_ERROR, MSG_ERROR_CREATE_PROD)
   }
+  submitting.value = false
 }
 
-// TODO extraer logica a 'services'
-const uploadImage = async (img, product) => {
-  const ext = img.type.substring(6) // type: "image/..."
-  const fileName = `${product.toLowerCase().replaceAll(' ', '-')}.${ext}`
-
-  const { data, error } = await supabase.storage
-    .from('images')
-    .upload(`products/${fileName}`, img)
-
-  return { data, error }
-}
-
-const createProduct = async (product) => {
-  const { status, error } = await supabase
-    .from('products')
-    .insert(product)
-
-  return { status, error }
+const productCreatedOk = () => {
+  errors.value = false
+  modal.value.close()
+  emit('refresh')
+  notify(NOTIFY_SUCCESS, MSG_CREATED_PROD)
 }
 
 </script>

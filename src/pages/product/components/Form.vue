@@ -15,6 +15,11 @@ const props = defineProps({
     type: Boolean,
     required: true,
   },
+  errors: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
 })
 
 const form = ref({
@@ -33,8 +38,6 @@ const previewImage = () => {
   }
 
   form.value.image = file.value.files[0] // ev.target.files[0]
-  console.log(form.value.image)
-
   if (form.value.image) {
     const reader = new FileReader()
     reader.onload = (e) => {
@@ -47,7 +50,9 @@ const previewImage = () => {
 }
 
 const submit = () => {
-  // validate form
+  // TODO validate form
+  // name - UNIQUE
+  // img name - UNIQUE
 
   // trigger event submit
   emit('submit', form.value)
@@ -65,7 +70,7 @@ const reset = () => {
 }
 
 watch(() => props.submitting, (newV, oldV) => {
-  if (newV === false && oldV === true) reset()
+  if (newV === false && oldV === true && !props.errors) reset()
 })
 </script>
 

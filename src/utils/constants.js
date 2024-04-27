@@ -6,3 +6,9 @@ export const NOTIFICATION = {
   NOTIFY_SUCCESS: 'success',
   NOTIFY_ERROR: 'error',
 }
+
+export const MESSAGES = {
+  MSG_CREATED_PROD: 'Producto agregado correctamente!',
+  MSG_ERROR_CREATE_PROD: 'Error! No se pudo guardar el producto.',
+  MSG_ERROR_UPLOAD_IMAGE: 'Error! No se pudo guardar la imagen.',
+}
