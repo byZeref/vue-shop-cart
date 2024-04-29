@@ -26,6 +26,9 @@
     }
 
     /* Blue btn */
+    .btn-blue-main {
+        @apply px-4 py-2 bg-[#003399] hover:bg-[#003399] active:bg-[#003399] border-[#003399] text-white text-sm font-normal rounded-md shadow focus:outline-none leading-tight hover:border-[#003399]
+    }
     .btn-blue {
         @apply px-4 py-2 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white text-sm font-normal rounded-md shadow focus:outline-none leading-tight
     }

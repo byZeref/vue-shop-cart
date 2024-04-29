@@ -5,6 +5,7 @@
         <ListboxButton
           id="menu-button"
           class="relative w-full cursor-pointer rounded-lg py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-red-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-emerald-300 text-sm"
+          :disabled="loading"
         >
           <span
             class="flex truncate text-slate-500 hover:opacity-80 duration-200"
@@ -75,6 +76,10 @@ import {
   ListboxOption,
 } from "@headlessui/vue"
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/vue/20/solid"
+
+defineProps({
+  loading: Boolean,
+})
 
 const productStore = useProductStore()
 const options = ref(["Disponibilidad", "Precio", "Nombre"])

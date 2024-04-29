@@ -103,7 +103,7 @@ const dropdownCartVisible = ref(true)
 <style lang="css" scoped>
 ul > li > a:active,
 ul > li > label:active {
-  background-color: v-bind(link_color);
+  background-color: v-bind(link_color) !important;
 }
 .main-image {
   aspect-ratio: 16/9;

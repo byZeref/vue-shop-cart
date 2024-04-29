@@ -1,6 +1,16 @@
 import { supabase } from '@/lib/supabaseClient.js'
 
 /**
+ * Retrieves all products from storage
+ * @returns {object}
+ */
+export const getProductsService = async () => {
+  const { data, error } = await supabase.from('products').select()
+
+  return { data, error }
+}
+
+/**
  * Creates a new product
  * @param {object} product Product to create 
  * @returns {object}
