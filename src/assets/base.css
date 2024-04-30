@@ -50,6 +50,13 @@
   }
 } */
 
+
+
+
+:root {
+  --ms-primary: #003399;
+}
+
 body {
   min-height: 100vh;
   color: var(--color-text);
@@ -62,4 +69,13 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* VueForm vars */
+:root, :before, :after, * {
+  --vf-primary: var(--ms-primary);
+  --vf-primary-darker: var(--ms-primary);
+  --vf-border-color-input-focus: var(--ms-primary);
+  --vf-ring-color: none;
+  --vf-border-color-input-danger: var(--vf-color-danger);
 }

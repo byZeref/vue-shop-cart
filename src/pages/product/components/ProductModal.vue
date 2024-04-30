@@ -37,6 +37,8 @@ const submit = async (form) => {
     const ext = img?.type.substring(6) // type: "image/..."
     const fileName = `${form.name.toLowerCase().replaceAll(' ', '-')}.${ext}`
     form.image = `products/${fileName}`
+  } else {
+    // TODO buscar en storage si ya existe la imagen y setearla
   }
 
   const { status, error } = await createProductService(form)

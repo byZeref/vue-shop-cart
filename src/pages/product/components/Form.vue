@@ -32,12 +32,14 @@ const file = ref()
 const imagePreview = ref()
 
 const previewImage = () => {
-  if (!file.value.files[0].type.includes('image')) {
+  // if (!file.value.files[0].type.includes('image')) {
+  if (!file.value.data.image?.type.includes('image')) {
     file.value.value = null
     return;
   }
 
-  form.value.image = file.value.files[0] // ev.target.files[0]
+  // form.value.image = file.value.files[0] // ev.target.files[0]
+  form.value.image = file.value.data.image // ev.target.files[0]
   if (form.value.image) {
     const reader = new FileReader()
     reader.onload = (e) => {
@@ -50,6 +52,9 @@ const previewImage = () => {
 }
 
 const submit = () => {
+  form.value.submitting = true
+  console.log(form.value.data);
+  return;
   // TODO validate form
   // name - UNIQUE
   // img name - UNIQUE
@@ -75,7 +80,46 @@ watch(() => props.submitting, (newV, oldV) => {
 </script>
 
 <template>
-  <form @submit.prevent="submit" class="flex flex-col gap-4">
+  <Vueform 
+    ref="form"
+    :endpoint="false"
+    @submit="submit"
+    :display-errors="false"
+    :messages="{ required: 'Este campo no puede estar vacío', min: 'Mas de 2 caracteres tronco' }"
+  >
+    <TextElement
+      v-model="form.name"
+      name="name"
+      placeholder="Nombre" 
+      size="lg"
+      :rules="['required', 'min:2']"
+      :debounce="500"
+    />
+    <TextElement
+      v-model="form.price"
+      name="price"
+      input-type="number"
+      placeholder="Precio" 
+      size="lg"
+      :rules="['required', 'numeric', 'min:0']"
+      :messages="{ min: 'El precio debe ser un número mayor a 0', numeric: 'El precio debe ser un número mayor a 0' }"
+      :debounce="500"
+    />
+    <FileElement
+      @change="previewImage"
+      @remove="() => imagePreview = null"
+      v-model="form.image"
+      ref="file"
+      input-type="file"
+      name="image"
+      accept="image/*"
+      view="image" 
+      :preview-url="imagePreview"
+    />
+    <ButtonElement button-label="Submit" submits />
+  </Vueform>
+
+  <form @submit.prevent="submit" class="flex flex-col gap-4 mt-20">
     <!-- NAME -->
     <input
       v-model="form.name"

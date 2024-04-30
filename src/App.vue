@@ -29,7 +29,10 @@ onMounted(() => window.addEventListener("scroll", () => handleScroll()))
   </section>
 </template>
 
-<style scoped>
+<style>
+/* load vueform css */
+@import './../node_modules/@vueform/vueform/dist/vueform.css';
+
 .backdrop {
   transition: box-shadow 0.1s ease;
   &.shadow {

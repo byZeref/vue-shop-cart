@@ -86,6 +86,10 @@ const getProducts = async () => {
   loading.value = false
 }
 
+
+// TODO update and delete product
+
+
 const sortProducts = (prods) => {
   prods.sort((a, b) => {
     if (a.stock && !b.stock) return -1

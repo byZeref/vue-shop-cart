@@ -3,6 +3,8 @@ import { createPinia } from "pinia";
 import App from './App.vue'
 import router from './router'
 import VueSweetalert2 from 'vue-sweetalert2'; // Sweet Alert
+import Vueform from '@vueform/vueform'
+import vueformConfig from './../vueform.config'
 
 import 'vue3-toastify/dist/index.css';
 import './assets/main.css'
@@ -22,6 +24,9 @@ const options = {
     cancelButtonColor: 'gray',
 };
 app.use(VueSweetalert2, options)
+
+// VueForm
+app.use(Vueform, vueformConfig)
 
 // Pinia
 app.use(pinia)
