@@ -22,12 +22,7 @@ const props = defineProps({
   },
 })
 
-const form = ref({
-  name: '',
-  price: '',
-  stock: true,
-  image: null,
-})
+const form = ref()
 const file = ref()
 const imagePreview = ref()
 
@@ -52,9 +47,6 @@ const previewImage = () => {
 }
 
 const submit = () => {
-  form.value.submitting = true
-  console.log(form.value.data);
-  return;
   // TODO validate form
   // name - UNIQUE
   // img name - UNIQUE
@@ -64,14 +56,14 @@ const submit = () => {
 }
 
 const reset = () => {
-  form.value = {
-    name: '',
-    price: '',
-    stock: true,
-    image: null,
-  }
+  form.value.reset()
   imagePreview.value = null
   file.value.value = null
+}
+
+const closeModal = () => {
+  props.modal.close()
+  reset()
 }
 
 watch(() => props.submitting, (newV, oldV) => {
@@ -88,7 +80,6 @@ watch(() => props.submitting, (newV, oldV) => {
     :messages="{ required: 'Este campo no puede estar vacío', min: 'Mas de 2 caracteres tronco' }"
   >
     <TextElement
-      v-model="form.name"
       name="name"
       placeholder="Nombre" 
       size="lg"
@@ -96,7 +87,6 @@ watch(() => props.submitting, (newV, oldV) => {
       :debounce="500"
     />
     <TextElement
-      v-model="form.price"
       name="price"
       input-type="number"
       placeholder="Precio" 
@@ -106,89 +96,32 @@ watch(() => props.submitting, (newV, oldV) => {
       :debounce="500"
     />
     <FileElement
-      @change="previewImage"
-      @remove="() => imagePreview = null"
-      v-model="form.image"
-      ref="file"
-      input-type="file"
-      name="image"
-      accept="image/*"
-      view="image" 
-      :preview-url="imagePreview"
+    ref="file"
+    input-type="file"
+    name="image"
+    accept="image/*"
+    view="image"
+    :description="imagePreview ? '' : 'Seleccione la imagen del producto' "
+    :preview-url="imagePreview"
+    :upload-temp-endpoint="false"
+    @change="previewImage"
+    @remove="() => imagePreview = null"
     />
-    <ButtonElement button-label="Submit" submits />
+    <div v-if="imagePreview" class="vf-col-12">
+      <img 
+        :src="imagePreview" alt=""
+        ref="image"
+        class="w-auto max-h-[300px] object-contain"
+      >
+    </div>
+    <CheckboxElement name="stock" size="lg" :default="true">
+      <span class="text-slate-500 text-base">Disponible</span>
+    </CheckboxElement>
+    <div class="flex vf-col-12 gap-x-2 justify-end mt-3">
+      <ButtonElement @click="closeModal" button-label="Cancelar" secondary />
+      <ButtonElement button-label="Guardar" submits />
+    </div>
   </Vueform>
-
-  <form @submit.prevent="submit" class="flex flex-col gap-4 mt-20">
-    <!-- NAME -->
-    <input
-      v-model="form.name"
-      type="text"
-      placeholder="Nombre"
-      :class="['input input-bordered bg-white w-full']"
-      :disabled="submitting"
-    />
-    <!-- PRICE -->
-    <input 
-      v-model="form.price"
-      type="text" min="0" 
-      placeholder="Precio" 
-      :class="['input input-bordered bg-white w-full']"
-      :disabled="submitting"
-    />
-    <!-- IMAGE -->
-    <input
-      @change="previewImage"
-      ref="file"
-      type="file"
-      accept="image/*"
-      class="file-input file-input-ghost file-input-bordered w-full bg-white"
-      :disabled="submitting"
-    />
-    <img 
-      v-if="imagePreview"
-      :src="imagePreview" alt=""
-      ref="image"
-      class="w-auto max-h-[300px] object-contain"
-    >
-    <!-- STOCK -->
-    <div class="form-control">
-      <label class="label cursor-pointer justify-start gap-x-3">
-        <input
-          v-model="form.stock"
-          type="checkbox"
-          class="checkbox checkbox-success" 
-          :disabled="submitting"
-        />
-        <span class="text-slate-500 text-base">Disponible</span> 
-      </label>
-    </div>
-    <!-- BUTTONS -->
-    <div class="buttons flex justify-end gap-x-4 mt-5">
-      <label
-        :class="[
-          'btn btn-outline hover:opacity-[0.95] flex items-center',
-          { 'pointer-events-none opacity-70' : submitting }
-        ]"
-        @click="() => {
-          modal.close()
-          reset()
-        }"
-      >
-        CANCELAR
-      </label>
-      <button
-        type="submit"
-        :class="[
-          'btn btn-success hover:opacity-[0.95] flex items-center',
-          { 'pointer-events-none opacity-70' : submitting }
-        ]"
-      >
-        <span v-if="submitting" class="loading loading-spinner loading-xs"></span>
-        GUARDAR
-      </button>
-    </div>
-  </form>
 </template>
 
 <style scoped>
