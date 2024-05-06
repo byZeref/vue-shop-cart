@@ -48,8 +48,8 @@
           EDITAR PRODUCTO
         </button>
         <button
-          onclick="product_modal_edit.showModal()"
-          @click="handleEditProduct(item)"
+          onclick="product_modal_confirm.showModal()"
+          @click="() => targetProduct = item"
           class="btn btn-block btn-error text-white"
         >
           ELIMINAR PRODUCTO
@@ -62,7 +62,12 @@
     v-show="showProductModal"
     id="product_modal_edit"
     :product="targetProduct"
-    @refresh="$emit('refresh')" 
+    @refresh="$emit('refresh')"
+  />
+  <Confirmation
+    :product="targetProduct"
+    :loading="removing"
+    @remove-product="handleDeleteProduct" 
   />
 </template>
 
@@ -71,8 +76,14 @@ import { ref } from 'vue'
 import { useProductStore } from "@/stores/product"
 import { useCartStore } from "@/stores/cart"
 import ProductModal from './ProductModal.vue'
+import Confirmation from './Confirmation.vue'
+import { deleteProductService } from '@/services/products'
+import { notify } from '@/helpers/notify'
+import { NOTIFICATION, MESSAGES } from '@/utils/constants'
+const { NOTIFY_SUCCESS, NOTIFY_ERROR } = NOTIFICATION
+const { MSG_DELETED_PROD, MSG_ERROR_DELETE_PROD, MSG_ERROR_DELETE_PROD_IMG } = MESSAGES
 
-defineEmits(['refresh'])
+const emit = defineEmits(['refresh'])
 
 const productStore = useProductStore()
 const cartStore = useCartStore()
@@ -93,8 +104,30 @@ const availableProduct = (prod) => {
 
 const handleEditProduct = (prod) => {
   targetProduct.value = prod
-  console.log('target prod', targetProduct.value);
   showProductModal.value = true
+}
+
+const removing = ref(false)
+
+const handleDeleteProduct = async () => {
+  const modal = document.getElementById('product_modal_confirm')
+  removing.value = true
+  const { status, error, imageError } = await deleteProductService(targetProduct.value)
+  removing.value = false
+
+  if (error) {
+    console.error('error on remove product')
+    notify(NOTIFY_ERROR, MSG_ERROR_DELETE_PROD)
+  }
+  if (imageError) {
+    console.error('error on remove image')
+    notify(NOTIFY_ERROR, MSG_ERROR_DELETE_PROD_IMG)
+  }
+  if (status === 204) {
+    modal.close()
+    emit('refresh')
+    notify(NOTIFY_SUCCESS, MSG_DELETED_PROD)
+  }
 }
 </script>
 
@@ -104,9 +137,6 @@ const handleEditProduct = (prod) => {
     height: 100%;
     display: flex;
     flex-direction: column;
-    & button.btn {
-      margin-top: auto;
-    }
   }
 }
 </style>

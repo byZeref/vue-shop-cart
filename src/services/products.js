@@ -74,3 +74,18 @@ export const updateProductService = async (id, product) => {
 
   return { status, error }
 }
+
+
+export const deleteProductService = async (product) => {
+
+  const { status, error } = await supabase
+    .from('products')
+    .delete()
+    .eq('id', product.id)
+
+  const { error: imageError } = await supabase.storage
+    .from('images')
+    .remove([product.image])
+
+  return { status, error, imageError }
+}

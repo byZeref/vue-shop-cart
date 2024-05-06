@@ -1,8 +1,8 @@
 <template>
   <dialog :id="id" class="modal max-md:modal-bottom" ref="modal">
     <div :class="['modal-box bg-white w-full md:max-w-md']">
-      <h4 class="text-xl font-semibold text-slate-700 mb-4">NUEVO PRODUCTO</h4>
-      <p class="mb-1 text-slate-600">Inserte los datos del nuevo producto</p>
+      <h4 class="text-xl font-semibold text-slate-700 mb-4">{{ title }}</h4>
+      <p class="mb-1 text-slate-600">{{ subtitle }}</p>
 
       <Form
         :product="product"
@@ -18,7 +18,7 @@
 
 <script setup>
 import Form from './Form.vue'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { createProductService, uploadImageService, updateProductService } from '@/services/products'
 import { notify } from '@/helpers/notify'
 import { NOTIFICATION, MESSAGES } from '@/utils/constants'
@@ -35,8 +35,9 @@ const props = defineProps({
     required: false,
   },
 })
-
 const emit = defineEmits(['refresh'])
+const title = computed(() => props.product ? 'EDITAR PRODUCTO' : 'NUEVO PRODUCTO')
+const subtitle = computed(() => props.product ? 'Modifique los datos del producto' : 'Inserte los datos del nuevo producto')
 const modal = ref()
 const submitting = ref(false)
 const errors = ref(false)
