@@ -54,7 +54,6 @@ const previewImage = () => {
 const submit = () => {
   console.log(form.value);
   return;
-  // TODO validate form
   // name - UNIQUE
   // img name - UNIQUE
 

@@ -1,5 +1,6 @@
 <script setup>
 import { ref, watch } from 'vue'
+import { uniqueProduct } from '@/utils/validations'
 
 const emit = defineEmits(['submit'])
 const props = defineProps({
@@ -47,11 +48,6 @@ const previewImage = () => {
 }
 
 const submit = () => {
-  // TODO validate form
-  // name - UNIQUE
-  // img name - UNIQUE
-
-  // trigger event submit
   emit('submit', form.value)
 }
 
@@ -83,7 +79,7 @@ watch(() => props.submitting, (newV, oldV) => {
       name="name"
       placeholder="Nombre" 
       size="lg"
-      :rules="['required', 'min:2']"
+      :rules="['required', 'min:2', uniqueProduct]"
       :debounce="500"
     />
     <TextElement
