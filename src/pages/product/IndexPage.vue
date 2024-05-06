@@ -17,7 +17,7 @@
     <div
       class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"
     >
-      <Shop />
+      <Shop @refresh="refresh" />
     </div>
     <div class="flex gap-10 flex-wrap" v-if="loading">
       <SkeletonProduct v-for="(index) in 4" :key="index" />
@@ -50,7 +50,7 @@
     </div>
   </div>
   
-  <ProductModal @refresh="refresh" />
+  <ProductModal id="product_modal" @refresh="refresh" />
 </template>
 
 <script setup>

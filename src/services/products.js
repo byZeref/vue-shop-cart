@@ -30,9 +30,32 @@ export const createProductService = async (product) => {
  * @returns {object}
  */
 export const uploadImageService = async (img, fileName) => {
+  // TODO reemplazar imagen si ya existe una con el mismo nombre
   const { data, error } = await supabase.storage
     .from('images')
     .upload(fileName, img)
 
   return { data, error }
+}
+
+/**
+ * Edits data of a single product
+ * @param {string} id 
+ * @param {object} product 
+ * @returns {object}
+ */
+export const updateProductService = async (id, product) => {
+  const data = {
+    name: product.name,
+    price: product.price,
+    stock: product.stock,
+  }
+  if (product.image) data['image'] = product.image
+
+  const { status, error } = await supabase
+    .from('products')
+    .update(data)
+    .eq('id', id)
+
+  return { status, error }
 }

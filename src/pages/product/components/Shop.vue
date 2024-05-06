@@ -34,22 +34,42 @@
         @click="addToCart(item)"
         :class="[
           !availableProduct(item).bool ? 'disabled' : '',
-          'btn btn-block mt-8 bg-[#003399] hover:bg-[#003399] text-white',
+          'btn btn-block bg-[#003399] hover:bg-[#003399] text-white',
         ]"
       >
         Agregar al Carrito
       </button>
+      <button
+        onclick="product_modal_edit.showModal()"
+        @click="handleEditProduct(item)"
+        class="btn btn-block bg-[#003399] hover:bg-[#003399] text-white"
+      >
+        EDITAR PRODUCTO
+      </button>
     </div>
   </div>
+
+  <ProductModal
+    v-show="showProductModal"
+    id="product_modal_edit"
+    :product="targetProduct"
+    @refresh="$emit('refresh')" 
+  />
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import { useProductStore } from "@/stores/product"
 import { useCartStore } from "@/stores/cart"
+import ProductModal from './ProductModal.vue'
+
+defineEmits(['refresh'])
 
 const productStore = useProductStore()
 const cartStore = useCartStore()
 const IMAGES_PATH = `${import.meta.env.VITE_PROJECT_URL}/${import.meta.env.VITE_IMAGES_PATH}`
+const targetProduct = ref()
+const showProductModal = ref(false)
 
 const addToCart = (item) => {
   cartStore.add(item)
@@ -60,6 +80,12 @@ const availableProduct = (prod) => {
     msg: prod.stock ? "Disponible" : "Agotado",
     bool: prod.stock,
   }
+}
+
+const handleEditProduct = (prod) => {
+  targetProduct.value = prod
+  console.log('target prod', targetProduct.value);
+  showProductModal.value = true
 }
 </script>
 

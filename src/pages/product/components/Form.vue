@@ -1,16 +1,17 @@
 <script setup>
 import { ref, watch } from 'vue'
-import { uniqueProduct } from '@/utils/validations'
+import { Validator } from '@vueform/vueform'
+import { getProductsService } from '@/services/products'
 
 const emit = defineEmits(['submit'])
 const props = defineProps({
-  product: {
-    type: Object,
-    required: false,
-  },
   modal: {
     type: Object,
     required: true,
+  },
+  product: {
+    type: Object,
+    required: false,
   },
   submitting: {
     type: Boolean,
@@ -23,7 +24,29 @@ const props = defineProps({
   },
 })
 
+const unique = class extends Validator {
+  get msg() {
+    return 'Ya existe este producto. Introduzca un nombre diferente.'
+  }
+
+  get isAsync() {
+    return true
+  }
+
+  async check(value) {
+    const { data } = await getProductsService()
+    const exists = data.some(product => {
+      return product.name.toLowerCase() === value.toLowerCase() 
+        && product.name.toLowerCase() !== props.product?.name.toLowerCase()
+    })
+    return !exists
+  }
+}
+
 const form = ref()
+const name = ref()
+const price = ref()
+const stock = ref()
 const file = ref()
 const imagePreview = ref()
 
@@ -62,8 +85,13 @@ const closeModal = () => {
   reset()
 }
 
-watch(() => props.submitting, (newV, oldV) => {
-  if (newV === false && oldV === true && !props.errors) reset()
+watch([() => props.submitting, () => props.product], (newV, oldV) => {
+  if (newV[0] === false && oldV[0] === true && !props.errors) reset()
+  if (newV[1]) {
+    name.value.value = props.product.name
+    price.value.value = props.product.price
+    stock.value.value = props.product.stock
+  }
 })
 </script>
 
@@ -77,15 +105,17 @@ watch(() => props.submitting, (newV, oldV) => {
   >
     <TextElement
       name="name"
-      placeholder="Nombre" 
+      ref="name"
+      placeholder="Nombre"
       size="lg"
-      :rules="['required', 'min:2', uniqueProduct]"
+      :rules="['required', 'min:2', unique]"
       :debounce="500"
     />
     <TextElement
       name="price"
+      ref="price"
       input-type="number"
-      placeholder="Precio" 
+      placeholder="Precio"
       size="lg"
       :rules="['required', 'numeric', 'min:0']"
       :messages="{ min: 'El precio debe ser un número mayor a 0', numeric: 'El precio debe ser un número mayor a 0' }"
@@ -97,9 +127,11 @@ watch(() => props.submitting, (newV, oldV) => {
     name="image"
     accept="image/*"
     view="image"
-    :description="imagePreview ? '' : 'Seleccione la imagen del producto' "
+    :description="imagePreview ? '' : 'Seleccione la imagen del producto'"
     :preview-url="imagePreview"
     :upload-temp-endpoint="false"
+    :removeTemp="false"
+    :remove="false"
     @change="previewImage"
     @remove="() => imagePreview = null"
     />
@@ -107,10 +139,15 @@ watch(() => props.submitting, (newV, oldV) => {
       <img 
         :src="imagePreview" alt=""
         ref="image"
-        class="w-auto max-h-[300px] object-contain"
+        class="w-auto max-h-[300px] object-contain mx-auto"
       >
     </div>
-    <CheckboxElement name="stock" size="lg" :default="true">
+    <CheckboxElement 
+      name="stock"
+      ref="stock"
+      size="lg"
+      :default="true"
+    >
       <span class="text-slate-500 text-base">Disponible</span>
     </CheckboxElement>
     <div class="flex vf-col-12 gap-x-2 justify-end mt-3">
