@@ -1,4 +1,5 @@
 import { supabase } from '@/lib/supabaseClient.js'
+import { file } from '@vueform/vueform'
 
 /**
  * Retrieves all products from storage
@@ -30,7 +31,21 @@ export const createProductService = async (product) => {
  * @returns {object}
  */
 export const uploadImageService = async (img, fileName) => {
-  // TODO reemplazar imagen si ya existe una con el mismo nombre
+  // get all existing files
+  const { data: images, error: listImagesError } = await supabase.storage.from('images').list('products')
+  if (listImagesError) return { error }
+
+  console.log('images', images)
+  const exists = images.some(file => file.name === fileName.substring(9)) // products/...
+  
+  if (exists) {
+    // delete existing file
+    const { data, error } = await supabase.storage.from('images').remove([fileName])
+    if (error) return { error }
+    console.log('file deleted', data)
+  }
+
+  // upload new image file
   const { data, error } = await supabase.storage
     .from('images')
     .upload(fileName, img)

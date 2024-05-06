@@ -30,22 +30,31 @@
         </span>
       </div>
       <p class="text-slate-500 mb-1">Precio: ${{ item.price.toFixed(2) }}</p>
-      <button
-        @click="addToCart(item)"
-        :class="[
-          !availableProduct(item).bool ? 'disabled' : '',
-          'btn btn-block bg-[#003399] hover:bg-[#003399] text-white',
-        ]"
-      >
-        Agregar al Carrito
-      </button>
-      <button
-        onclick="product_modal_edit.showModal()"
-        @click="handleEditProduct(item)"
-        class="btn btn-block bg-[#003399] hover:bg-[#003399] text-white"
-      >
-        EDITAR PRODUCTO
-      </button>
+      <div class="mt-auto gap-2 flex flex-col">
+        <button
+          @click="addToCart(item)"
+          :class="[
+            !availableProduct(item).bool ? 'disabled' : '',
+            'btn btn-block bg-[#003399] hover:bg-[#003399] text-white',
+          ]"
+        >
+          Agregar al Carrito
+        </button>
+        <button
+          onclick="product_modal_edit.showModal()"
+          @click="handleEditProduct(item)"
+          class="btn btn-block bg-[#003399] hover:bg-[#003399] text-white"
+        >
+          EDITAR PRODUCTO
+        </button>
+        <button
+          onclick="product_modal_edit.showModal()"
+          @click="handleEditProduct(item)"
+          class="btn btn-block btn-error text-white"
+        >
+          ELIMINAR PRODUCTO
+        </button>
+      </div>
     </div>
   </div>
 
