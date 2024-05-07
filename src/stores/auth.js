@@ -30,6 +30,8 @@ export const useAuthStore = defineStore('auth', () => {
     expires_at.value = undefined
     expires_in.value = undefined
     token_type.value = undefined
+    
+    if (localStorage.getItem(ls_item)) localStorage.removeItem(ls_item)
   }
 
   return { user, isLogged, access_token, refresh_token, login, reset }

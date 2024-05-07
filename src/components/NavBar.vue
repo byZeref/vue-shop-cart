@@ -102,14 +102,9 @@ const dropdownCartVisible = ref(true)
 
 const logout = async ()  => {
   dropdownVisible.value = false
-  const { error } = await supabase.auth.signOut()
-
-  if (error) {
-    console.error('error on logout', error);
-  } else {
-    authStore.reset()
-    return router.push({ name: 'home' })
-  }
+  await supabase.auth.signOut()
+  authStore.reset()
+  return router.push({ name: 'home' })
 }
 
 </script>
