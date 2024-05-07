@@ -90,7 +90,7 @@ import CartModal from "../components/CartModal.vue"
 import ContactModal from "../components/ContactModal.vue"
 import { useCartStore } from "../stores/cart"
 import { useAuthStore } from '@/stores/auth'
-import { supabase } from '@/lib/supabaseClient'
+import { logoutService } from '@/services/auth'
 import { useRouter } from 'vue-router'
 
 const store = useCartStore()
@@ -102,7 +102,7 @@ const dropdownCartVisible = ref(true)
 
 const logout = async ()  => {
   dropdownVisible.value = false
-  await supabase.auth.signOut()
+  await logoutService()
   authStore.reset()
   return router.push({ name: 'home' })
 }

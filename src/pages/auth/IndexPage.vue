@@ -1,11 +1,11 @@
 <script setup>
 import { ref, watchEffect } from 'vue'
-import { supabase } from '@/lib/supabaseClient'
+import { loginService } from '@/services/auth'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { notify } from '@/helpers/notify'
 import { NOTIFICATION, MESSAGES } from '@/utils/constants'
-const { NOTIFY_SUCCESS, NOTIFY_ERROR } = NOTIFICATION
+const { NOTIFY_SUCCESS } = NOTIFICATION
 const { MSG_USER_LOGGED } = MESSAGES
 
 const router = useRouter()
@@ -17,16 +17,10 @@ const password = ref()
 const submit = async () => {
   const { email, password } = form.value.data
   form.value.submitting = true
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
-  })
+  const { data, error } = await loginService(email, password)
   form.value.submitting = false
 
-  if (error) {
-    // TODO handle error alert
-    console.error('error on login', error);
-  } else {
+  if (!error) {
     authStore.login(data)
     router.push({ name: 'home' })
     setTimeout(() => {

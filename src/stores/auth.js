@@ -13,7 +13,6 @@ export const useAuthStore = defineStore('auth', () => {
   const isLogged = computed(() => user.value !== undefined)
 
   const login = (data) => {
-    console.log('login data', data);
     const { session } = data
     user.value = data.user
     access_token.value = session.access_token
