@@ -1,11 +1,21 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, watchEffect } from 'vue'
 
 const form = ref()
+const email = ref()
+const password = ref()
 
 const submit = () => {
-
+  console.log(form.value.data);
 }
+
+watchEffect(() => {
+  if (email.value?.value) document.querySelector('.field.email').classList.add('has-content')
+  else document.querySelector('.field.email')?.classList.remove('has-content')
+  
+  if (password.value?.value) document.querySelector('.field.password').classList.add('has-content')
+  else document.querySelector('.field.password')?.classList.remove('has-content')
+})
 </script>
 
 <template>
@@ -19,16 +29,18 @@ const submit = () => {
     :display-errors="false"
     >
       <TextElement
-        class="field email"
         name="email"
         ref="email"
+        input-type="email"
+        class="field email"
         placeholder="Email"
         size="lg"
       />
       <TextElement
-        class="field password"
         name="password"
         ref="password"
+        input-type="password"
+        class="field password"
         placeholder="Contraseña"
         size="lg"
       />
@@ -45,7 +57,7 @@ const submit = () => {
 
 <style lang="css" scoped>
 :deep(.vf-input-field) {
-  padding-left: 40px !important;
+  padding-left: 42px !important;
 }
 
 .login-container {
@@ -70,14 +82,22 @@ const submit = () => {
         left: 0;
         width: 24px;
         height: 24px;
+        transition: transform .3s ease;
       }
       &.email::before {
         background-image: url('/src/assets/icons/mail.svg');
-        transform: translate(42%, 48%);
+        transform: translate(50%, 48%);
       }
       &.password::before {
         background-image: url('/src/assets/icons/lock.svg');
-        transform: translate(45%, 45%);
+        transform: translate(52%, 45%);
+      }
+
+      &.has-content.email::before {
+        transform: translate(50%, 70%);
+      }
+      &.has-content.password::before {
+        transform: translate(52%, 68%);
       }
     }
   }
