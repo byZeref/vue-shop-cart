@@ -65,7 +65,7 @@
 </template>
 
 <script setup>
-import { PHONE_NUMBER } from '@/utils/constants'
+const PHONE_NUMBER = import.meta.env.VITE_COMPANY_PHONE_NUMBER
 </script>
 
 <style lang="css" scoped>
