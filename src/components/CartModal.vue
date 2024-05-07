@@ -55,10 +55,6 @@
           <div
             class="basis-1/2 md:basis-2/4 flex justify-center md px-0 md:px-2 py-4 items-center"
           >
-            <!-- <button @click="addToCart(item)"
-                            :class="[outOfStock(item) ? 'disabled' : '', 'btn btn-success btn-xs md:btn-sm btn-square']">
-                            <PlusIcon class="w-3 h-3 md:w-5 md:h-5" />
-                        </button> -->
             <button
               @click="addToCart(item)"
               :class="['btn btn-success btn-sm btn-square']"
@@ -71,13 +67,6 @@
             >
               <MinusIcon class="w-4 h-4 md:w-5 md:h-5" />
             </button>
-            <!-- <button
-              @click="removeFullProd(item)"
-              class="btn btn-ghost btn-sm text-xs"
-            >
-              <span class="md:hidden">Eliminar</span>
-              <span class="max-md:hidden">Eliminar Producto</span>
-            </button> -->
           </div>
           <!-- MOUNTS -->
           <div class="basis-1/6 md:basis-1/4 px-1 md:px-2 py-4 text-end">
@@ -131,7 +120,6 @@
 <script setup>
 import WhatsApp from "@/components/WhatsApp.vue";
 import { ref, computed } from "vue";
-import { PHONE_NUMBER } from "@/utils/constants";
 import {
   PlusIcon,
   MinusIcon,
@@ -142,6 +130,7 @@ import {
 import { useProductStore } from "../stores/product";
 import { useCartStore } from "../stores/cart";
 
+const PHONE_NUMBER = import.meta.env.VITE_COMPANY_PHONE_NUMBER
 const productStore = useProductStore();
 const cartStore = useCartStore();
 const loadingBuy = ref(false);

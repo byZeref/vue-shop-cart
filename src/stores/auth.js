@@ -12,6 +12,8 @@ export const useAuthStore = defineStore('auth', () => {
   const token_type = ref(JSON.parse(localStorage.getItem(ls_item))?.token_type)
   const isLogged = computed(() => user.value !== undefined)
 
+  const isAdmin = computed(() => isLogged.value) // TODO arreglar mas adelante
+
   const login = (data) => {
     const { session } = data
     user.value = data.user
@@ -33,5 +35,5 @@ export const useAuthStore = defineStore('auth', () => {
     if (localStorage.getItem(ls_item)) localStorage.removeItem(ls_item)
   }
 
-  return { user, isLogged, access_token, refresh_token, login, reset }
+  return { user, isLogged, access_token, refresh_token, login, reset, isAdmin }
 })

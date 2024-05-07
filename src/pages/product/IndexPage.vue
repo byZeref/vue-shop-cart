@@ -6,7 +6,8 @@
         <SearchFilter :loading="loading" />
         <DropdownSort :loading="loading" />
       </div>
-      <button 
+      <button
+        v-if="authStore.isAdmin"
         onclick="product_modal.showModal()" 
         :class="['btn btn-success', { disabled: loading }]"
       >
@@ -59,7 +60,8 @@ import SearchFilter from "@/components/SearchFilter.vue"
 import Shop from "./components/Shop.vue"
 import ProductModal from './components/ProductModal.vue'
 import SkeletonProduct from '@/components/SkeletonProduct.vue'
-import { onMounted, ref } from "vue"
+import { onMounted, ref, computed } from "vue"
+import { useAuthStore } from '@/stores/auth'
 import { useProductStore } from "@/stores/product"
 import { getProductsService } from '@/services/products'
 import { ExclamationTriangleIcon } from "@heroicons/vue/24/outline"
@@ -68,6 +70,7 @@ import { MESSAGES, NOTIFICATION } from  '@/utils/constants'
 const { MSG_ERROR_GET_ALL_PRODS } = MESSAGES
 const { NOTIFY_ERROR } = NOTIFICATION
 
+const authStore = useAuthStore()
 const productStore = useProductStore()
 const loading = ref(false)
 const products = ref([])
@@ -85,10 +88,6 @@ const getProducts = async () => {
   }
   loading.value = false
 }
-
-
-// TODO auth
-
 
 const sortProducts = (prods) => {
   prods.sort((a, b) => {

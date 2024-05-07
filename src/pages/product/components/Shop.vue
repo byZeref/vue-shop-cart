@@ -32,6 +32,7 @@
       <p class="text-slate-500 mb-1">Precio: ${{ item.price.toFixed(2) }}</p>
       <div class="mt-auto gap-2 flex flex-col">
         <button
+          v-if="!authStore.isAdmin"
           @click="addToCart(item)"
           :class="[
             !availableProduct(item).bool ? 'disabled' : '',
@@ -41,6 +42,7 @@
           Agregar al Carrito
         </button>
         <button
+          v-if="authStore.isAdmin"
           onclick="product_modal_edit.showModal()"
           @click="handleEditProduct(item)"
           class="btn btn-block bg-[#003399] hover:bg-[#003399] text-white"
@@ -48,6 +50,7 @@
           EDITAR PRODUCTO
         </button>
         <button
+          v-if="authStore.isAdmin"
           onclick="product_modal_confirm.showModal()"
           @click="() => targetProduct = item"
           class="btn btn-block btn-error text-white"
@@ -74,6 +77,7 @@
 import { ref } from 'vue'
 import { useProductStore } from "@/stores/product"
 import { useCartStore } from "@/stores/cart"
+import { useAuthStore } from "@/stores/auth"
 import ProductModal from './ProductModal.vue'
 import Confirmation from './Confirmation.vue'
 import { deleteProductService } from '@/services/products'
@@ -86,6 +90,7 @@ const emit = defineEmits(['refresh'])
 
 const productStore = useProductStore()
 const cartStore = useCartStore()
+const authStore = useAuthStore()
 const IMAGES_PATH = `${import.meta.env.VITE_PROJECT_URL}/${import.meta.env.VITE_IMAGES_PATH}`
 const targetProduct = ref()
 

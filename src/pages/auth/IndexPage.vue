@@ -22,7 +22,7 @@ const submit = async () => {
 
   if (!error) {
     authStore.login(data)
-    router.push({ name: 'home' })
+    router.push({ name: 'products' })
     setTimeout(() => {
       notify(NOTIFY_SUCCESS, MSG_USER_LOGGED)
     }, 10)
