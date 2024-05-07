@@ -87,7 +87,7 @@ const getProducts = async () => {
 }
 
 
-// TODO update and delete product
+// TODO auth
 
 
 const sortProducts = (prods) => {

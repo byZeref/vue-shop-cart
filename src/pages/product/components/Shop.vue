@@ -59,7 +59,6 @@
   </div>
 
   <ProductModal
-    v-show="showProductModal"
     id="product_modal_edit"
     :product="targetProduct"
     @refresh="$emit('refresh')"
@@ -89,7 +88,6 @@ const productStore = useProductStore()
 const cartStore = useCartStore()
 const IMAGES_PATH = `${import.meta.env.VITE_PROJECT_URL}/${import.meta.env.VITE_IMAGES_PATH}`
 const targetProduct = ref()
-const showProductModal = ref(false)
 
 const addToCart = (item) => {
   cartStore.add(item)
@@ -104,7 +102,6 @@ const availableProduct = (prod) => {
 
 const handleEditProduct = (prod) => {
   targetProduct.value = prod
-  showProductModal.value = true
 }
 
 const removing = ref(false)

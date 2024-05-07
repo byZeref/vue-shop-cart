@@ -82,7 +82,7 @@ const reset = () => {
 
 const closeModal = () => {
   props.modal.close()
-  reset()
+  // reset()
 }
 
 watch([() => props.submitting, () => props.product], (newV, oldV) => {

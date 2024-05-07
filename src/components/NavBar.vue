@@ -43,7 +43,7 @@
         <label @click="dropdownCartVisible = true" tabindex="0" class="btn btn-ghost btn-circle">
           <div class="indicator">
             <ShoppingCartIcon class="w-6 h-6" />
-            <span v-if="store.counter > 0" class="badge badge-sm bg-accent text-white border-none indicator-item">
+            <span v-if="store.counter > 0" class="badge badge-sm bg-success text-white border-none indicator-item">
               {{ store.counter }}
             </span>
           </div>
@@ -67,7 +67,7 @@
               <label 
                 @click="dropdownCartVisible = false"
                 for="cart-modal" 
-                :class="[store.counter === 0 ? 'disabled' : '','btn btn-outline btn-accent btn-block',]"
+                :class="[store.counter === 0 ? 'disabled' : '','btn btn-outline btn-success btn-block',]"
               >
                 Ver Carrito
               </label>
