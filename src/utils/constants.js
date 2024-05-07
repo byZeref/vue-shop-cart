@@ -8,6 +8,8 @@ export const NOTIFICATION = {
 }
 
 export const MESSAGES = {
+  MSG_USER_LOGGED: 'Bienvenido al sistema!',
+  MSG_ERROR_LOGIN: 'Error! Credenciales incorrectas',
   MSG_CREATED_PROD: 'Producto agregado correctamente!',
   MSG_UPDATED_PROD: 'Producto modificado correctamente!',
   MSG_DELETED_PROD: 'El producto se ha eliminado!',

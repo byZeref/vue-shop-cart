@@ -13,7 +13,8 @@
           <li @click="dropdownVisible = false"><RouterLink to="/">Inicio</RouterLink></li>
           <li @click="dropdownVisible = false"><RouterLink to="/productos">Productos</RouterLink></li>
           <li><label for="contact-modal">Contacto</label></li>
-          <li @click="dropdownVisible = false"><RouterLink to="/login">Iniciar Sesión</RouterLink></li>
+          <li v-if="!authStore.isLogged" @click="dropdownVisible = false"><RouterLink to="/login">Iniciar Sesión</RouterLink></li>
+          <li v-else><label @click="logout">Salir</label></li>
         </ul>
       </div>
       <img
@@ -28,16 +29,11 @@
     <img src="/images/logo.png" class="main-image lg:hidden" alt="fruit-logo" />
     <div class="navbar-center hidden lg:flex">
       <ul class="menu menu-horizontal px-1 gap-x-1">
-        <li>
-          <RouterLink to="/" class="max-lg:hidden">Inicio</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/productos" class="max-lg:hidden">Productos</RouterLink>
-        </li>
+        <li><RouterLink to="/" class="max-lg:hidden">Inicio</RouterLink></li>
+        <li><RouterLink to="/productos" class="max-lg:hidden">Productos</RouterLink></li>
         <li><label for="contact-modal">Contacto</label></li>
-        <li>
-          <RouterLink to="/login" class="max-lg:hidden">Iniciar Sesión</RouterLink>
-        </li>
+        <li v-if="!authStore.isLogged"><RouterLink to="/login" class="max-lg:hidden">Iniciar Sesión</RouterLink></li>
+        <li v-else><label @click="logout">Salir</label></li>
       </ul>
     </div>
     <div class="navbar-end">
@@ -88,18 +84,34 @@
 import { ref } from "vue"
 import {
   Bars3CenterLeftIcon,
-  ChevronDownIcon,
-  ChevronRightIcon,
   ShoppingCartIcon,
 } from "@heroicons/vue/24/outline"
-import { useCartStore } from "../stores/cart"
 import CartModal from "../components/CartModal.vue"
 import ContactModal from "../components/ContactModal.vue"
+import { useCartStore } from "../stores/cart"
+import { useAuthStore } from '@/stores/auth'
+import { supabase } from '@/lib/supabaseClient'
+import { useRouter } from 'vue-router'
 
 const store = useCartStore()
+const authStore = useAuthStore()
+const router = useRouter()
 const link_color = "#003399"
 const dropdownVisible = ref(true)
 const dropdownCartVisible = ref(true)
+
+const logout = async ()  => {
+  dropdownVisible.value = false
+  const { error } = await supabase.auth.signOut()
+
+  if (error) {
+    console.error('error on logout', error);
+  } else {
+    authStore.reset()
+    return router.push({ name: 'home' })
+  }
+}
+
 </script>
 
 <style lang="css" scoped>
