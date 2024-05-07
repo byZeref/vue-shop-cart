@@ -12,9 +12,8 @@
         >
           <li @click="dropdownVisible = false"><RouterLink to="/">Inicio</RouterLink></li>
           <li @click="dropdownVisible = false"><RouterLink to="/productos">Productos</RouterLink></li>
-          <li>
-            <label for="contact-modal">Contacto</label>
-          </li>
+          <li><label for="contact-modal">Contacto</label></li>
+          <li @click="dropdownVisible = false"><RouterLink to="/login">Iniciar Sesión</RouterLink></li>
         </ul>
       </div>
       <img
@@ -36,6 +35,9 @@
           <RouterLink to="/productos" class="max-lg:hidden">Productos</RouterLink>
         </li>
         <li><label for="contact-modal">Contacto</label></li>
+        <li>
+          <RouterLink to="/login" class="max-lg:hidden">Iniciar Sesión</RouterLink>
+        </li>
       </ul>
     </div>
     <div class="navbar-end">
