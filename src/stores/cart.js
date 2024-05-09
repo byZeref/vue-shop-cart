@@ -24,7 +24,7 @@ export const useCartStore = defineStore('cart', () => {
     // item es un producto general (productStore)
     function add(item) {
         const prod = cart.value.find(el => el.id === item.id)
-        if (prod && item.stock > 0) {
+        if (prod && item.stock) {
             prod.cant++
             prod.monto = prod.price * prod.cant
             prod.buyValidated = true

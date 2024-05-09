@@ -42,6 +42,8 @@ const modal = ref()
 const submitting = ref(false)
 const errors = ref(false)
 
+// TODO move errors logic to helper
+
 const submit = async (form) => {
   const isEditing = props.product !== undefined
   const { data } = form
