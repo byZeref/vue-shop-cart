@@ -131,6 +131,7 @@ import { useProductStore } from "../stores/product";
 import { useCartStore } from "../stores/cart";
 
 const PHONE_NUMBER = import.meta.env.VITE_COMPANY_PHONE_NUMBER
+const SITE_URL = import.meta.env.VITE_COMPANY_SITE_URL
 const productStore = useProductStore();
 const cartStore = useCartStore();
 const loadingBuy = ref(false);
@@ -150,18 +151,21 @@ const buyMsgeCode = computed(() => {
 });
 
 const message = computed(() => {
+  // 🏣 🏢 🏬
   const { cart } = cartStore;
-  let text = "Hola, quisiera realizar una compra de los siguientes productos: ";
+  const header = `> 🏢 *Empresa Masticando Sabores*\n`
+  let text = `${header}\nHola, vengo de\n${SITE_URL}\nQuisiera realizar la siguiente compra:\n\n> 🛒 *Pedido*\n\n`
   let total = 0;
   cart.forEach((item, index) => {
     const units = item.cant > 1 ? "unidades" : "unidad";
     const subtotal = item.cant * item.price;
     total += subtotal;
-    text += `${item.product} - ${item.cant} ${units} ($${subtotal}.00)`;
-    if (index + 1 < cart.length) text += " | ";
+    text += `*${item.product}:* x${item.cant} ${units} *${"`"}$${subtotal.toFixed(2)}${"`"}*\n`;
   });
-  text += `. *${"`"}TOTAL $${total}.00${"`"}*`;
-  return text;
+  text += `\n> 💲*Total a pagar*\n`
+  text += `\n*${"`"}TOTAL: $${total.toFixed(2)}${"`"}*`;
+  return encodeURI(text)
+  // return text.replaceAll(/\n/g, '%0A');
 });
 
 // const buy = () => {
